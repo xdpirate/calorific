@@ -518,3 +518,4 @@ if(isset($_GET['all'])) {
         <script src="./js/endscripts.js"></script>
     </body>
 </html>
+<?php mysqli_close($link); ?>

@@ -67,7 +67,7 @@ function registerButtons() {
             noun = "ingredient";
         }
 
-        if(confirm(`Are you sure you want to delete this ${noun}?\n\n"${name}"`)) {
+        if(confirm(`Are you sure you want to delete the ${noun} "${name}"?`)) {
             document.location.href = `./?delete=${id}&from=${src}`;
         }
     };

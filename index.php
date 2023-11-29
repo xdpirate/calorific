@@ -45,7 +45,13 @@ require("./php/delete.php");
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
 $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `name` ASC;");
 $resToday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(NOW() AS DATE) ORDER BY `time` ASC;");
-$resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) != CAST(NOW() AS DATE) ORDER BY `time` DESC LIMIT 20;");
+$resHistory = "";
+
+if(isset($_GET['all'])) {
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) != CAST(NOW() AS DATE) ORDER BY `time` DESC;");
+} else {
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) != CAST(NOW() AS DATE) ORDER BY `time` DESC LIMIT 20;");
+}
 
 ?><!DOCTYPE html>
 
@@ -420,7 +426,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                 </div>
             </div>
 
-            <h2>Today</h2>
+            <h2 id="todayHeader">Today</h2>
 
             <div id="mealstoday">
                 <table>
@@ -464,7 +470,17 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
 
             </div>
 
-            <h2>Previous 20 meals</h2>
+            <?php
+                if(isset($_GET['all'])) {
+            ?>
+            <h2 id="historyHeader">All meals <sup><small><small><a href="./">[show recent]</a></small></small></sup></h2>
+            <?php        
+                } else {
+            ?>
+            <h2 id="historyHeader">Recent meals <sup><small><small><a href="./?all">[show all]</a></small></small></sup></h2>
+            <?php
+                }
+            ?>
 
             <div id="mealhistory">
             <table>

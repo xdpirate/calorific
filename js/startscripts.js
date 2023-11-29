@@ -54,6 +54,28 @@ function registerButtons() {
     };
 
     document.getElementById("addSavedMealAddSavedIngredientBtn").addEventListener("click", addSavedMealAddSavedIngredient);
+
+    let deleteEntry = function() {
+        let src = this.getAttribute("data-src");
+        let id = this.getAttribute("data-id");
+        let name = this.getAttribute("data-name");
+
+        let noun = "log entry";
+        if(src == "meals") {
+            noun = "meal";
+        } else if(src == "ingredients") {
+            noun = "ingredient";
+        }
+
+        if(confirm(`Are you sure you want to delete this ${noun}?\n\n"${name}"`)) {
+            document.location.href = `./?delete=${id}&from=${src}`;
+        }
+    };
+
+    let deleteButtons = document.querySelectorAll("span.delBtn");
+    for(let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener("click", deleteEntry);
+    }
 }
 
 function initialChangeTab() {

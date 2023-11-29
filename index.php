@@ -15,6 +15,7 @@ require("./php/dbsetup.php");
 require("./php/addmeal.php");
 require("./php/addsavedmeal.php");
 require("./php/addsavedingredient.php");
+require("./php/delete.php");
 
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
 $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `name` ASC;");
@@ -92,6 +93,10 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                 cursor: pointer;
             }
 
+            span.delBtn {
+                cursor: pointer;
+            }
+
             div#tabcontents {
                 border-bottom: 1px solid #e5e9f0;
             }
@@ -145,7 +150,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                 background: #4c566a;
             }
 
-            td:first-child, th:first-child {
+            td:first-child, th:first-child, td:nth-child(2), th:nth-child(2) {
                 width: 1%;
                 white-space: nowrap;
             }
@@ -228,7 +233,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                     ?>
                                 </select> <br />
 
-                                Amount: <input id="addMealAddSavedIngredientAmount" type="number" min="1" value="1"> g/ml
+                                Amount: <input id="addMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
                                 <input id="addMealAddSavedIngredientBtn" type="button" value="+ Add">
                             </div>
                         </div>
@@ -275,7 +280,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                         ?>
                                     </select> <br />
 
-                                    Amount: <input id="addSavedMealAddSavedIngredientAmount" type="number" min="1" value="1"> g/ml
+                                    Amount: <input id="addSavedMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
                                     <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add">
                                 </div>
 
@@ -287,6 +292,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                             <b>🍽️ Saved meals</b><hr>
                             <table>
                                 <thead>
+                                    <th>⚙️</th>
                                     <th>Meal name</th>
                                     <th>kcal</th>
                                 </thead>
@@ -299,7 +305,8 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                             $kcal = mysqli_result($resMeals,$i,"kcal");
             
                                             print("
-                                                <tr data-dbid='$id'>
+                                                <tr>
+                                                    <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span></td>
                                                     <td>$name</td>
                                                     <td>$kcal</td>
                                                 </tr>
@@ -308,7 +315,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                         
                                         print("
                                             <tr>
-                                                <td colspan='2' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
+                                                <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
                                             </tr>
                                         ");
                                     ?>
@@ -336,6 +343,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                             <b>🥔 Saved ingredients</b><hr>
                             <table>
                                 <thead>
+                                    <th>⚙️</th>
                                     <th>Ingredient name</th>
                                     <th>kcal pr. 100 g/ml</th>
                                 </thead>
@@ -348,7 +356,8 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                             $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
             
                                             print("
-                                                <tr data-dbid='$id'>
+                                                <tr>
+                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span></td>
                                                     <td>$name</td>
                                                     <td>$kcalPer100</td>
                                                 </tr>
@@ -357,7 +366,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                         
                                         print("
                                             <tr>
-                                                <td colspan='2' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
+                                                <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
                                             </tr>
                                         ");
                                     ?>
@@ -373,6 +382,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
             <div id="mealstoday">
                 <table>
                     <thead>
+                        <th>⚙️</th>
                         <th>🕔</th>
                         <th>Description</th>
                         <th>kcal consumed</th>
@@ -390,7 +400,8 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                 $dailyTotal += $kcal;
 
                                 print("
-                                    <tr data-dbid='$id'>
+                                    <tr>
+                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span></td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
@@ -400,7 +411,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                             
                             print("
                                 <tr>
-                                    <td colspan='3' class='tableFooter'><b>Total:</b> $dailyTotal</td>
+                                    <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal</td>
                                 </tr>
                             ");
                         ?>
@@ -415,6 +426,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
             <div id="mealhistory">
             <table>
                     <thead>
+                        <th>⚙️</th>
                         <th>🕔</th>
                         <th>Description</th>
                         <th>kcal consumed</th>
@@ -431,7 +443,8 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                 $dailyTotal += $kcal;
 
                                 print("
-                                    <tr data-dbid='$id'>
+                                    <tr>
+                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span></td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>

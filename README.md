@@ -16,7 +16,7 @@ Calorific is aimed at people who more or less know what they're doing and don't 
 
 ## Requirements
 
-You can run Calorific on your own AMP stack, or via Docker (soon).
+You can run Calorific on your own AMP stack, or via Docker.
 
 ### AMP stack
 
@@ -28,7 +28,7 @@ Calorific is developed and tested using Apache2 and MySQL, but other web servers
 
 ### Docker
 
-* Docker and Docker Compose (soon)
+* Docker and Docker Compose
 
 ## Installation/Usage
 

@@ -201,9 +201,9 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
             <h1><a href="./"><img src="./favicon.png" width="32" height="32" /> Calorific</a></h1>
 
             <div id="tabbar">
-                <span id="logMealTab" data-div="logMealDiv" class="tab selected">📑 Log a meal</span> 
-                <span id="savedMealsTab" data-div="savedMealsDiv" class="tab">🍲 Saved meals</span> 
-                <span id="savedIngredientsTab" data-div="savedIngredientsDiv" class="tab">🥔 Saved ingredients</span> 
+                <span id="logMealTab" data-div="logMealDiv" class="tab selected">📑 Log</span> 
+                <span id="savedMealsTab" data-div="savedMealsDiv" class="tab">🍲 Meals</span> 
+                <span id="savedIngredientsTab" data-div="savedIngredientsDiv" class="tab">🥔 Ingredients</span> 
             </div>
 
             <div id="tabcontents">

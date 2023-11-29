@@ -14,6 +14,7 @@ if(!$link) {
 require("./php/dbsetup.php");
 require("./php/addmeal.php");
 require("./php/addsavedmeal.php");
+require("./php/addsavedingredient.php");
 
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
 $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `name` ASC;");
@@ -212,10 +213,19 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
 
                                 <select name="addMealSavedIngredients" id="addMealSavedIngredients">
                                     <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                    <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                    <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                    <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                    <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
+                                    <?php
+                                        $numrows = mysqli_num_rows($resIngredients); 
+                                        for($i = 0; $i < $numrows; $i++) {
+                                            $name = mysqli_result($resIngredients,$i,"name");
+                                            $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+
+                                            print("
+                                                <option data-kcal='$kcalPer100' data-name='$name'>
+                                                    $name ($kcalPer100 kcal pr. 100g/ml)
+                                                </option>
+                                            ");
+                                        }
+                                    ?>
                                 </select> <br />
 
                                 Amount: <input id="addMealAddSavedIngredientAmount" type="number" min="1" value="1"> g/ml
@@ -250,11 +260,19 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                     Meal name (required): <input type="text" name="addSavedMealFromIngrName" id="addSavedMealFromIngrName" placeholder="Meal name"></input><br />Total kcal: <input id="addSavedMealFromIngrTotalKcal" name="addSavedMealFromIngrTotalKcal" type="number" min="0" value="0"></input><br />
 
                                     <select name="addSavedMealFromIngr" id="addSavedMealFromIngr">
-                                        <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                        <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                        <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                        <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
-                                        <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
+                                        <?php
+                                            $numrows = mysqli_num_rows($resIngredients); 
+                                            for($i = 0; $i < $numrows; $i++) {
+                                                $name = mysqli_result($resIngredients,$i,"name");
+                                                $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+
+                                                print("
+                                                    <option data-kcal='$kcalPer100' data-name='$name'>
+                                                        $name ($kcalPer100 kcal pr. 100g/ml)
+                                                    </option>
+                                                ");
+                                            }
+                                        ?>
                                     </select> <br />
 
                                     Amount: <input id="addSavedMealAddSavedIngredientAmount" type="number" min="1" value="1"> g/ml
@@ -300,7 +318,53 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                     </div>
                 </div>
                 <div id="savedIngredientsDiv" class="contentDiv hidden">
-                    Put some ingredients here, cuh
+                <div class="miniboxwrapper">
+                        <div class="minibox">
+                            <form method="GET" action=".">
+                                <b>🥗 Save an ingredient</b><hr>
+                                <input type="hidden" name="newSavedIngrSubmitted" id="newSavedIngrSubmitted" value="1">
+                                
+                                <div>
+                                    Ingredient name (required): <input type="text" name="addSavedIngrName" id="addSavedIngrName" placeholder="Ingredient name"></input><br />Kcal pr. 100g or ml: <input id="addSavedIngrTotalKcal" name="addSavedIngrTotalKcal" type="number" min="0" value="0"></input>
+                                </div>
+
+                                <input id="submitSavedIngrBtn" type="submit" value="Save ingredient">
+                            </form>
+                        </div>
+
+                        <div class="minibox wide">
+                            <b>🥔 Saved ingredients</b><hr>
+                            <table>
+                                <thead>
+                                    <th>Ingredient name</th>
+                                    <th>kcal pr. 100 g/ml</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $numrows = mysqli_num_rows($resIngredients); 
+                                        for($i = 0; $i < $numrows; $i++) {
+                                            $id = mysqli_result($resIngredients,$i,"ID");
+                                            $name = mysqli_result($resIngredients,$i,"name");
+                                            $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+            
+                                            print("
+                                                <tr data-dbid='$id'>
+                                                    <td>$name</td>
+                                                    <td>$kcalPer100</td>
+                                                </tr>
+                                            ");
+                                        }
+                                        
+                                        print("
+                                            <tr>
+                                                <td colspan='2' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
+                                            </tr>
+                                        ");
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -336,7 +400,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                             
                             print("
                                 <tr>
-                                    <td colspan='3' class='tableFooter'><b>Total consumed total:</b> $dailyTotal</td>
+                                    <td colspan='3' class='tableFooter'><b>Total:</b> $dailyTotal</td>
                                 </tr>
                             ");
                         ?>

@@ -217,7 +217,6 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                 <b>🥔 Add a saved ingredient to this log entry</b><hr>
 
                                 <select name="addMealSavedIngredients" id="addMealSavedIngredients">
-                                    <option value="potato" data-kcal="80" data-name="Potato">Potato (80 kcal pr 100g/ml)</option>
                                     <?php
                                         $numrows = mysqli_num_rows($resIngredients); 
                                         for($i = 0; $i < $numrows; $i++) {

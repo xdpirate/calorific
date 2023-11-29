@@ -1,5 +1,5 @@
 function registerTabs() {
-    let tabspans = document.querySelectorAll("span.tab");
+    let tabspans = document.querySelectorAll("div.tab");
     
     let tabToggler = function() {
         for(let i = 0; i < tabspans.length; i++) {

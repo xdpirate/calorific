@@ -104,18 +104,19 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                 text-align: left;
             }
 
-            span.tab, div#tabcontents {
+            div.tab, div#tabcontents {
                 padding: 0.8em;
                 border-left: 1px solid #e5e9f0;
                 border-right: 1px solid #e5e9f0;
                 border-top: 1px solid #e5e9f0;
             }
             
-            span.tab {
+            div.tab {
                 margin-right: 0.8em;
                 z-index: 5;
                 user-select: none;
                 cursor: pointer;
+                display: inline-block;
             }
 
             span.delBtn {
@@ -126,11 +127,15 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                 border-bottom: 1px solid #e5e9f0;
             }
 
-            div#tabcontents, div#mealstoday, div#mealhistory {
+            div#mealstoday, div#mealhistory {
                 margin-top: 0.75em;
             }
 
-            span.tab.selected, div#tabcontents {
+            div#tabcontents {
+                margin-top: -0.1em;
+            }
+
+            div.tab.selected, div#tabcontents {
                 background-color: #434c5e;
             }
 
@@ -201,9 +206,9 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
             <h1><a href="./"><img src="./favicon.png" width="32" height="32" /> Calorific</a></h1>
 
             <div id="tabbar">
-                <span id="logMealTab" data-div="logMealDiv" class="tab selected">📑 Log</span> 
-                <span id="savedMealsTab" data-div="savedMealsDiv" class="tab">🍲 Meals</span> 
-                <span id="savedIngredientsTab" data-div="savedIngredientsDiv" class="tab">🥔 Ingredients</span> 
+                <div id="logMealTab" data-div="logMealDiv" class="tab selected">📑 Log</div> 
+                <div id="savedMealsTab" data-div="savedMealsDiv" class="tab">🍲 Meals</div> 
+                <div id="savedIngredientsTab" data-div="savedIngredientsDiv" class="tab">🥔 Ingredients</div> 
             </div>
 
             <div id="tabcontents">

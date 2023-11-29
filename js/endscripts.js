@@ -1,0 +1,3 @@
+registerTabs();
+registerButtons();
+initialChangeTab();

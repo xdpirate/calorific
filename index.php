@@ -409,7 +409,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                         
                                         print("
                                             <tr>
-                                                <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
+                                                <td colspan='3' class='tableFooter'><b>Total saved ingredients:</b> $numrows</td>
                                             </tr>
                                         ");
                                     ?>

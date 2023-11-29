@@ -196,21 +196,26 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
 
                                 <select name="addMealSavedMeals" id="addMealSavedMeals">
                                     <?php
-                                        $numrows = mysqli_num_rows($resMeals); 
-                                        for($i = 0; $i < $numrows; $i++) {
-                                            $name = mysqli_result($resMeals,$i,"name");
-                                            $kcal = mysqli_result($resMeals,$i,"kcal");
-            
-                                            print("
-                                                <option data-kcal='$kcal' data-name='$name'>
-                                                    $name ($kcal kcal)
-                                                </option>
-                                            ");
+                                        $numrows = mysqli_num_rows($resMeals);
+
+                                        if($numrows == 0) {
+                                            print("<option disabled>No saved meals</option>");
+                                        } else {
+                                            for($i = 0; $i < $numrows; $i++) {
+                                                $name = mysqli_result($resMeals,$i,"name");
+                                                $kcal = mysqli_result($resMeals,$i,"kcal");
+                
+                                                print("
+                                                    <option data-kcal='$kcal' data-name='$name'>
+                                                        $name ($kcal kcal)
+                                                    </option>
+                                                ");
+                                            }
                                         }
                                     ?>
                                 </select>
 
-                                <input id="addMealAddSavedMealBtn" type="button" value="+ Add">
+                                <input id="addMealAddSavedMealBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
                             </div>
 
                             <div class="minibox">
@@ -219,21 +224,26 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                 <select name="addMealSavedIngredients" id="addMealSavedIngredients">
                                     <?php
                                         $numrows = mysqli_num_rows($resIngredients); 
-                                        for($i = 0; $i < $numrows; $i++) {
-                                            $name = mysqli_result($resIngredients,$i,"name");
-                                            $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+                                        if($numrows == 0) {
+                                            print("<option disabled>No saved ingredients</option>");
+                                        } else {
+                                            for($i = 0; $i < $numrows; $i++) {
+                                                $name = mysqli_result($resIngredients,$i,"name");
+                                                $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
 
-                                            print("
-                                                <option data-kcal='$kcalPer100' data-name='$name'>
-                                                    $name ($kcalPer100 kcal pr. 100g/ml)
-                                                </option>
-                                            ");
+                                                print("
+                                                    <option data-kcal='$kcalPer100' data-name='$name'>
+                                                        $name ($kcalPer100 kcal pr. 100g/ml)
+                                                    </option>
+                                                ");
+                                            }
                                         }
+                                        
                                     ?>
                                 </select> <br />
 
                                 Amount: <input id="addMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
-                                <input id="addMealAddSavedIngredientBtn" type="button" value="+ Add">
+                                <input id="addMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
                             </div>
                         </div>
 
@@ -266,24 +276,28 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
                                     <select name="addSavedMealFromIngr" id="addSavedMealFromIngr">
                                         <?php
                                             $numrows = mysqli_num_rows($resIngredients); 
-                                            for($i = 0; $i < $numrows; $i++) {
-                                                $name = mysqli_result($resIngredients,$i,"name");
-                                                $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+                                            if($numrows == 0) {
+                                                print("<option disabled>No saved meals</option>");
+                                            } else {
+                                                for($i = 0; $i < $numrows; $i++) {
+                                                    $name = mysqli_result($resIngredients,$i,"name");
+                                                    $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
 
-                                                print("
-                                                    <option data-kcal='$kcalPer100' data-name='$name'>
-                                                        $name ($kcalPer100 kcal pr. 100g/ml)
-                                                    </option>
-                                                ");
+                                                    print("
+                                                        <option data-kcal='$kcalPer100' data-name='$name'>
+                                                            $name ($kcalPer100 kcal pr. 100g/ml)
+                                                        </option>
+                                                    ");
+                                                }
                                             }
                                         ?>
                                     </select> <br />
 
                                     Amount: <input id="addSavedMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
-                                    <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add">
+                                    <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
                                 </div>
 
-                                <input id="submitSavedMealFromIngrBtn" type="submit" value="Save built meal">
+                                <input id="submitSavedMealFromIngrBtn" type="submit" value="Save built meal"<?php if($numrows == 0) { ?> disabled<?php }?>>
                             </form>
                         </div>
 

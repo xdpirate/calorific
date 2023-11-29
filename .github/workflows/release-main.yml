@@ -1,0 +1,34 @@
+name: Build and publish latest commit
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_OWNER: xdpirate
+    steps:
+    - name: Generate short sha
+      uses: benjlevesque/short-sha@v2.2
+      id: short-sha
+      with:
+        length: 7
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Zip repo
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r Calorific-${{ steps.short-sha.outputs.sha }}.zip .
+    - name: Upload release
+      uses: ncipollo/release-action@v1.12.0
+      with:
+        artifacts: "Calorific-${{ steps.short-sha.outputs.sha }}.zip"
+        generateReleaseNotes: true
+        makeLatest: true
+        name: Calorific-${{ steps.short-sha.outputs.sha }}
+        tag: ${{ steps.short-sha.outputs.sha }}
+        token: ${{ secrets.GITHUB_TOKEN }}

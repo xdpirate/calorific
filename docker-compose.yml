@@ -1,0 +1,16 @@
+version: '3'
+services:
+  www: 
+    build: .
+    volumes:
+      - "./:/var/www/html"
+      - /dev/null:/var/www/html/credentials.php
+    ports:
+      - 1338:80
+  db: 
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=calorific
+      - MYSQL_USER=php_docker
+      - MYSQL_PASSWORD=password123
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1

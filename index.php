@@ -55,7 +55,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            html,body,input {
+            html,body,input,select {
                 background-color: #2e3440;
                 color: #e5e9f0;
                 font-family: Arial, Helvetica, sans-serif;

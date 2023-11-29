@@ -132,7 +132,7 @@ $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS 
             }
 
             div#tabcontents {
-                margin-top: -0.1em;
+                margin-top: -0.06em;
             }
 
             div.tab.selected, div#tabcontents {

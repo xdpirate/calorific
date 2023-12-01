@@ -36,7 +36,7 @@ function registerButtons() {
         kcal = Math.ceil((amount / 100) * kcal);
 
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
-        document.querySelector("#addMealDescription").value += name + ", ";
+        document.querySelector("#addMealDescription").value += `${name} (${amount}), `;
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
     };
 
@@ -49,7 +49,7 @@ function registerButtons() {
         kcal = Math.ceil((amount / 100) * kcal);
 
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
-        document.querySelector("#addSavedMealFromIngrName").value += name + ", ";
+        document.querySelector("#addSavedMealFromIngrName").value += `${name} (${amount}), `;
         document.querySelector("#addSavedMealFromIngrTotalKcal").value = Number(document.querySelector("#addSavedMealFromIngrTotalKcal").value) + kcal;
     };
 

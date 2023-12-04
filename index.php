@@ -17,7 +17,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // ===================================================================================
 
-// These credentials are for the Docker image. If you want to run GameHorizon
+// These credentials are for the Docker image. If you want to run Calorific
 // locally without using Docker, don't change these; add them to credentials.php!
 $mysqlHost = "db";
 $mysqlUser = "php_docker";

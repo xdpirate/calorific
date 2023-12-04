@@ -213,6 +213,18 @@ if(isset($_GET['all'])) {
                 backdrop-filter: blur(5px);
             }
 
+            #footer {
+                width: 98%;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-size: smaller;
+                text-align: center;
+            }
+
+            #footer a {
+                text-decoration: underline;
+            }
+
             /* Phone styles */
             @media all and (max-width: 1000px) {
                 #everything {
@@ -565,6 +577,10 @@ if(isset($_GET['all'])) {
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div id="footer">
+            Calorific <?php $commitHash = substr(file_get_contents('.git/refs/heads/main'),0,7); print("(ver. <a href='https://github.com/xdpirate/calorific/commit/$commitHash'>$commitHash</a>)"); ?> &copy; 2023 xdpirate. Licensed under the <a href="https://github.com/xdpirate/calorific/blob/main/LICENSE.md" target="_blank">GNU General Public License v3.0</a>. <a href="https://github.com/xdpirate/calorific" target="_blank">Github</a>
         </div>
         <script src="./js/endscripts.js"></script>
     </body>

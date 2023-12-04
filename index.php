@@ -40,6 +40,7 @@ require("./php/dbsetup.php");
 require("./php/addmeal.php");
 require("./php/addsavedmeal.php");
 require("./php/addsavedingredient.php");
+require("./php/edit.php");
 require("./php/delete.php");
 
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
@@ -61,7 +62,7 @@ if(isset($_GET['all'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            html,body,input,select {
+            html,body,input,select,dialog {
                 background-color: #2e3440;
                 color: #e5e9f0;
                 font-family: Arial, Helvetica, sans-serif;
@@ -125,8 +126,17 @@ if(isset($_GET['all'])) {
                 display: inline-block;
             }
 
-            span.delBtn {
+            span.delBtn, span.closeBtn, span.editBtn {
                 cursor: pointer;
+            }
+
+            span.editBtn {
+                margin-left: 4px;
+            }
+
+            span.closeBtn {
+                float: right;
+                margin-left: 1em;
             }
 
             div#tabcontents {
@@ -195,6 +205,14 @@ if(isset($_GET['all'])) {
                 text-align: right;
             }
 
+            dialog {
+                border: 1px solid #e5e9f0;
+            }
+
+            dialog::backdrop {
+                backdrop-filter: blur(5px);
+            }
+
             /* Phone styles */
             @media all and (max-width: 1000px) {
                 #everything {
@@ -208,6 +226,39 @@ if(isset($_GET['all'])) {
     </head>
 
     <body>
+        <dialog id="editLogDialog">
+            <form method="GET" action="./">
+                <input type="hidden" name="edit" id="hiddenEditLogField" value="log">
+                <input type="hidden" name="id" id="hiddenEditLogIDField" value="">
+                <span class="closeBtn" title="Close" onclick="document.getElementById('editLogDialog').close()">❌</span>
+                <b>Edit log entry</b><br /><br />
+                
+                <label for="editLogDescription">Description:</label><br />
+                <input type="text" placeholder="Description" name="editLogDescription" id="editLogDescription"><br /><br />
+                
+                <label for="editLogKcal">Kcal:</label><br />
+                <input type="number" name="editLogKcal" id="editLogKcal"><br /><br />
+
+                <input type="submit" value="OK">
+            </form>
+        </dialog>
+        <dialog id="editMealIngredientDialog">
+            <form method="GET" action="./">
+                <input type="hidden" name="edit" id="hiddenEditField" value="">
+                <input type="hidden" name="id" id="hiddenEditIDField" value="">
+                <span class="closeBtn" title="Close" onclick="document.getElementById('editMealIngredientDialog').close()">❌</span>
+                <b id="editMealIngredientDialogHeader">Edit meal/ingredient</b><br /><br />
+                
+                <label for="editMealIngredientName" id="editMealIngredientDescriptionLabel">Name:</label><br />
+                <input type="text" placeholder="Name" name="editMealIngredientName" id="editMealIngredientName"><br /><br />
+                
+                <label for="editMealIngredientKcal" id="editMealIngredientKcalLabel">Kcal per 100g/ml:</label><br />
+                <input type="number" name="editMealIngredientKcal" id="editMealIngredientKcal"><br /><br />
+
+                <input type="submit" value="OK">
+            </form>
+        </dialog>
+
         <div id="everything">
             <h1><a href="./"><img src="./favicon.png" width="32" height="32" /> Calorific</a></h1>
 
@@ -355,7 +406,7 @@ if(isset($_GET['all'])) {
             
                                             print("
                                                 <tr>
-                                                    <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span></td>
+                                                    <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='meals' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
                                                     <td>$name</td>
                                                     <td>$kcal</td>
                                                 </tr>
@@ -406,7 +457,7 @@ if(isset($_GET['all'])) {
             
                                             print("
                                                 <tr>
-                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span></td>
+                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
                                                     <td>$name</td>
                                                     <td>$kcalPer100</td>
                                                 </tr>
@@ -450,7 +501,7 @@ if(isset($_GET['all'])) {
 
                                 print("
                                     <tr>
-                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span></td>
+                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span><span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal'>✏️</span></td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
@@ -503,7 +554,7 @@ if(isset($_GET['all'])) {
 
                                 print("
                                     <tr>
-                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span></td>
+                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span><span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal'>✏️</span></td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>

@@ -75,6 +75,49 @@ function registerButtons() {
     let deleteButtons = document.querySelectorAll("span.delBtn");
     for(let i = 0; i < deleteButtons.length; i++) {
         deleteButtons[i].addEventListener("click", deleteEntry);
+        deleteButtons[i].title = "Delete";
+    }
+
+    let editEntry = function() {
+        let src = this.getAttribute("data-src");
+        let id = this.getAttribute("data-id");
+        let name = this.getAttribute("data-name");
+        let kcal = Number(this.getAttribute("data-kcal"));
+
+        if(src == "log") {
+            document.querySelector("#hiddenEditLogIDField").value = id;
+            document.querySelector("#editLogDescription").value = name;
+            document.querySelector("#editLogKcal").value = kcal;
+
+            document.querySelector("#editLogDialog").showModal();
+        } else {
+            let noun = "";
+            if(src == "meals") {
+                noun = "meal";
+                document.querySelector("#editMealIngredientKcalLabel").innerText = "Kcal:";
+            } else if(src == "ingredients") {
+                noun = "ingredient";
+                document.querySelector("#editMealIngredientKcalLabel").innerText = "Kcal per 100g/ml:";
+            }
+
+            document.querySelector("#hiddenEditField").value = noun;
+            document.querySelector("#hiddenEditIDField").value = id;
+            
+            document.querySelector("#editMealIngredientDialogHeader").innerText = "Edit " + noun;
+            document.querySelector("#editMealIngredientDescriptionLabel").innerText = noun.charAt(0).toUpperCase() + noun.slice(1) + " name:";
+            
+            document.querySelector("#editMealIngredientName").value = name;
+            document.querySelector("#editMealIngredientName").placeholder = noun.charAt(0).toUpperCase() + noun.slice(1) + " name";
+            document.querySelector("#editMealIngredientKcal").value = kcal;
+
+            document.querySelector("#editMealIngredientDialog").showModal();
+        }
+    };
+
+    let editButtons = document.querySelectorAll("span.editBtn");
+    for(let i = 0; i < editButtons.length; i++) {
+        editButtons[i].addEventListener("click", editEntry);
+        editButtons[i].title = "Edit";
     }
 }
 

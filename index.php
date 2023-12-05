@@ -46,12 +46,13 @@ require("./php/delete.php");
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
 $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `name` ASC;");
 $resToday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(NOW() AS DATE) ORDER BY `time` ASC;");
+$resYesterday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` ASC");
 $resHistory = "";
 
 if(isset($_GET['all'])) {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) != CAST(NOW() AS DATE) ORDER BY `time` DESC;");
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC;");
 } else {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) != CAST(NOW() AS DATE) ORDER BY `time` DESC LIMIT 20;");
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 20;");
 }
 
 ?><!DOCTYPE html>
@@ -527,10 +528,50 @@ if(isset($_GET['all'])) {
                                 </tr>
                             ");
                         ?>
-                        
                     </tbody>
                 </table>
+            </div>
 
+            <h2 id="yesterdayHeader">Yesterday</h2>
+
+            <div id="mealsyesterday">
+            <table>
+                    <thead>
+                        <th>⚙️</th>
+                        <th>🕔</th>
+                        <th>Description</th>
+                        <th>kcal consumed</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $numrows = mysqli_num_rows($resYesterday); 
+                            $dailyTotal = 0;
+                            for($i = 0; $i < $numrows; $i++) {
+                                $id = mysqli_result($resYesterday,$i,"ID");
+                                $timestamp = mysqli_result($resYesterday,$i,"time");
+                                $timestamp = date("H:i", strtotime($timestamp));
+                                $description = mysqli_result($resYesterday,$i,"description");
+                                $kcal = mysqli_result($resYesterday,$i,"kcal");
+                                $dailyTotal += $kcal;
+
+                                print("
+                                    <tr>
+                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span><span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal'>✏️</span></td>
+                                        <td>$timestamp</td>
+                                        <td>$description</td>
+                                        <td>$kcal</td>
+                                    </tr>
+                                ");
+                            }
+
+                            print("
+                                <tr>
+                                    <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal</td>
+                                </tr>
+                            ");
+                        ?>
+                    </tbody>
+                </table>
             </div>
 
             <?php
@@ -540,7 +581,7 @@ if(isset($_GET['all'])) {
             <?php        
                 } else {
             ?>
-            <h2 id="historyHeader">Recent meals <sup><small><small><a href="./?all">[show all]</a></small></small></sup></h2>
+            <h2 id="historyHeader">Previous <sup><small><small><a href="./?all">[show all]</a></small></small></sup></h2>
             <?php
                 }
             ?>

@@ -159,6 +159,10 @@ if(isset($_GET['all'])) {
             .hidden {
                 display: none;
             }
+
+            select {
+                max-width: 20em;
+            }
             
             table {
                 width: 100%;

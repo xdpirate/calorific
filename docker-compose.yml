@@ -5,6 +5,7 @@ services:
     volumes:
       - "./:/var/www/html"
       - /dev/null:/var/www/html/credentials.php
+      - /dev/null:/var/www/html/docker-compose.yml
     ports:
       - 1338:80
   db: 
@@ -13,4 +14,4 @@ services:
       - MYSQL_DATABASE=calorific
       - MYSQL_USER=php_docker
       - MYSQL_PASSWORD=password123
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_RANDOM_ROOT_PASSWORD=1

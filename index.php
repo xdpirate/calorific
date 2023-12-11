@@ -102,6 +102,13 @@ if(isset($_GET['all'])) {
                 text-align: center;
                 vertical-align: middle;
             }
+            
+            summary {
+                list-style: none;
+                cursor: pointer;
+                display: inline;
+                user-select: none;
+            }
 
             div.wide {
                 width: 90%;
@@ -127,12 +134,8 @@ if(isset($_GET['all'])) {
                 display: inline-block;
             }
 
-            span.delBtn, span.closeBtn, span.editBtn {
+            span.delBtn, span.closeBtn, span.editBtn, span.cloneBtn {
                 cursor: pointer;
-            }
-
-            span.editBtn {
-                margin-left: 4px;
             }
 
             span.closeBtn {
@@ -518,7 +521,14 @@ if(isset($_GET['all'])) {
 
                                 print("
                                     <tr>
-                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span><span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal'>✏️</span></td>
+                                        <td>
+                                            <details>
+                                            <summary>⚙️</summary>
+                                                <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
+                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' title='Edit'>✏️</span>
+                                                <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                            </details>
+                                        </td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
@@ -560,7 +570,14 @@ if(isset($_GET['all'])) {
 
                                 print("
                                     <tr>
-                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span><span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal'>✏️</span></td>
+                                        <td>
+                                            <details>
+                                            <summary>⚙️</summary>
+                                                <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
+                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' title='Edit'>✏️</span>
+                                                <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                            </details>
+                                        </td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
@@ -611,7 +628,14 @@ if(isset($_GET['all'])) {
 
                                 print("
                                     <tr>
-                                        <td><span class='delBtn' data-src='log' data-id='$id' data-name='$description'>❌</span><span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal'>✏️</span></td>
+                                        <td>
+                                            <details>
+                                            <summary>⚙️</summary>
+                                                <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
+                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' title='Edit'>✏️</span>
+                                                <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                            </details>
+                                        </td>
                                         <td>$timestamp</td>
                                         <td>$description</td>
                                         <td>$kcal</td>

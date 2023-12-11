@@ -75,7 +75,6 @@ function registerButtons() {
     let deleteButtons = document.querySelectorAll("span.delBtn");
     for(let i = 0; i < deleteButtons.length; i++) {
         deleteButtons[i].addEventListener("click", deleteEntry);
-        deleteButtons[i].title = "Delete";
     }
 
     let editEntry = function() {
@@ -117,7 +116,23 @@ function registerButtons() {
     let editButtons = document.querySelectorAll("span.editBtn");
     for(let i = 0; i < editButtons.length; i++) {
         editButtons[i].addEventListener("click", editEntry);
-        editButtons[i].title = "Edit";
+    }
+
+    let cloneEntry = function() {
+        let name = this.getAttribute("data-name");
+        let kcal = Number(this.getAttribute("data-kcal"));
+
+        document.querySelector("div#logMealTab").click();
+
+        document.querySelector("input#addMealDescription").value = name;
+        document.querySelector("input#addMealTotalKcal").value = kcal;
+
+        document.querySelector("div#logMealTab").scrollIntoView();
+    };
+
+    let cloneButtons = document.querySelectorAll("span.cloneBtn");
+    for(let i = 0; i < cloneButtons.length; i++) {
+        cloneButtons[i].addEventListener("click", cloneEntry);
     }
 }
 

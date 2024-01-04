@@ -21,9 +21,10 @@ function registerTabs() {
 function registerButtons() {
     let addMealAddSavedMeal = function() {
         let selectedMeal = document.querySelector("select#addMealSavedMeals");
-        let kcal = Number(selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-kcal"));
+        let amount = Number(document.querySelector("select#addMealSavedMealsNum").value);
+        let kcal = Number(selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-kcal")) * amount;
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
-        document.querySelector("#addMealDescription").value += name + ", ";
+        document.querySelector("#addMealDescription").value += amount + "x " + name + ", ";
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
     };
 

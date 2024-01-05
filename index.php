@@ -322,7 +322,7 @@ if(isset($_GET['all'])) {
                                             print("<option disabled>No saved meals</option>");
                                         } else {
                                             for($i = 0; $i < $numrows; $i++) {
-                                                $name = mysqli_result($resMeals,$i,"name");
+                                                $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
                                                 $kcal = mysqli_result($resMeals,$i,"kcal");
                 
                                                 print("
@@ -400,7 +400,7 @@ if(isset($_GET['all'])) {
                                                 print("<option disabled>No saved meals</option>");
                                             } else {
                                                 for($i = 0; $i < $numrows; $i++) {
-                                                    $name = mysqli_result($resIngredients,$i,"name");
+                                                    $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
                                                     $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
 
                                                     print("
@@ -434,7 +434,7 @@ if(isset($_GET['all'])) {
                                         $numrows = mysqli_num_rows($resMeals); 
                                         for($i = 0; $i < $numrows; $i++) {
                                             $id = mysqli_result($resMeals,$i,"ID");
-                                            $name = mysqli_result($resMeals,$i,"name");
+                                            $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
                                             $kcal = mysqli_result($resMeals,$i,"kcal");
             
                                             print("
@@ -485,7 +485,7 @@ if(isset($_GET['all'])) {
                                         $numrows = mysqli_num_rows($resIngredients); 
                                         for($i = 0; $i < $numrows; $i++) {
                                             $id = mysqli_result($resIngredients,$i,"ID");
-                                            $name = mysqli_result($resIngredients,$i,"name");
+                                            $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
                                             $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
             
                                             print("

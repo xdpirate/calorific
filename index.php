@@ -140,6 +140,9 @@ if(isset($_GET['all'])) {
 
             span.closeBtn {
                 float: right;
+            }
+
+            span.closeBtn, input#clearLogFieldsBtn {
                 margin-left: 1em;
             }
 
@@ -294,7 +297,7 @@ if(isset($_GET['all'])) {
                         <input type="hidden" name="newMealSubmitted" id="newMealSubmitted" value="1">
 
                         <div>
-                            Meal description (optional): <input type="text" name="addMealDescription" id="addMealDescription" placeholder="Meal description"></input> Total kcal: <input id="addMealTotalKcal" name="addMealTotalKcal" type="number" min="0" value="0"></input>
+                            Meal description (optional): <input type="text" name="addMealDescription" id="addMealDescription" placeholder="Meal description"></input> Total kcal: <input id="addMealTotalKcal" name="addMealTotalKcal" type="number" min="0" value="0"></input> <input type="button" value="Clear" id="clearLogFieldsBtn" name="clearLogFieldsBtn"></input>
                         </div>
 
                         <div class="miniboxwrapper">

@@ -135,6 +135,11 @@ function registerButtons() {
     for(let i = 0; i < cloneButtons.length; i++) {
         cloneButtons[i].addEventListener("click", cloneEntry);
     }
+
+    document.querySelector("#clearLogFieldsBtn").addEventListener("click", function() {
+        document.querySelector("#addMealDescription").value = "";
+        document.querySelector("#addMealTotalKcal").value = 0;
+    });
 }
 
 function initialChangeTab() {

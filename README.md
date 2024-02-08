@@ -11,8 +11,10 @@ Calorific is aimed at people who more or less know what they're doing and don't 
 * Log meals
 * Save commonly used meals
 * Save commonly used ingredients
+* Build log entries from saved meals and ingredients lists
 * Build saved meals from ingredients list
 * [Nord](https://www.nordtheme.com/)
+* Built-in update mechanism
 
 ## Requirements
 
@@ -47,7 +49,7 @@ $mysqlPassword = "your-sql-password";
 ```
 
 4. Replace the values of the variables to fit your database configuration. Calorific will set up the database structure by itself.
-5. To update calorific, run `git pull` in the repository directory (requires `git` to be installed).
+5. To update Calorific, use the [included updater](#updater), or run `git pull` in the repository directory (requires `git` to be installed).
 
 ### Running with Docker
 
@@ -75,6 +77,14 @@ Run `docker-compose down` from inside the repository directory, then delete it. 
 There are currently zero security measures implemented. For external access, you can use `.htaccess` based authentication or a reverse proxy with authentication. Alternatively, you can make sure the application isn't exposed outside your local network.
 
 If you are running Calorific in Docker and also exposing it outside your own network, you need to change the MySQL username and password in `docker-compose.yml` and `index.php` to something unique! If you don't, your database will be vulnerable, as the default credentials are included in plain text in this repository.
+
+## Updater
+
+You can update Calorific through the UI by clicking "Update" on the bottom right of the page. This is disabled by default, as it requires you to be running Calorific outside of Docker and inside a trusted environment. It requires `git` to be installed on a UNIX-like server. Calorific passes your password to the OS in plain text, and although it isn't logged, the mechanism in which it operates can be abused by someone with access to the updater. In order to enable the updater, you must add this to your `credentials.php`:
+
+    $updaterEnabled = true;
+
+This can be toggled on and off at will, and will apply on the next page load. You can enable it, update, then disable it again if you'd like, but I definitely don't recommend keeping it on if you're running in an untrusted environment where other people may have access to Calorific.
 
 ## License
 

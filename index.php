@@ -84,6 +84,13 @@ if(isset($_GET['all'])) {
                 margin-top: 50px;
             }
 
+            #updateWrapper {
+                border: 1px solid #e5e9f0;;
+                border-radius: 10px;
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+
             div.miniboxwrapper {
                 text-align: center;
             }
@@ -184,7 +191,7 @@ if(isset($_GET['all'])) {
                 text-align: right;
             }
 
-            input[type=submit] {
+            input[type=submit]:not(#updateSubmitBtn) {
                 width: 100%;
                 height: 3em;
                 margin-top: 1em;
@@ -249,6 +256,7 @@ if(isset($_GET['all'])) {
     </head>
 
     <body>
+        <?php if(!isset($_GET['update'])) { ?>
         <dialog id="editLogDialog">
             <form method="GET" action="./">
                 <input type="hidden" name="edit" id="hiddenEditLogField" value="log">
@@ -268,7 +276,7 @@ if(isset($_GET['all'])) {
 
                 <input type="submit" value="OK">
             </form>
-        </dialog>
+        </dialog><?php } ?>
         <dialog id="editMealIngredientDialog">
             <form method="GET" action="./">
                 <input type="hidden" name="edit" id="hiddenEditField" value="">
@@ -288,6 +296,8 @@ if(isset($_GET['all'])) {
 
         <div id="everything">
             <h1><a href="./"><img src="./favicon.png" width="32" height="32" /> Calorific</a></h1>
+
+            <?php if(!isset($_GET['update'])) { ?>
 
             <div id="tabbar">
                 <div id="logMealTab" data-div="logMealDiv" class="tab selected">📑 Log</div> 
@@ -670,10 +680,16 @@ if(isset($_GET['all'])) {
                     </tbody>
                 </table>
             </div>
+        </div><?php } else { ?>
+
+        <div id="updateWrapper">
+            <?php require("./php/update.php"); ?>
         </div>
 
+        <?php } ?>
+
         <div id="footer">
-            Calorific <?php $commitHash = substr(file_get_contents('.git/refs/heads/main'),0,7); print("(ver. <a href='https://github.com/xdpirate/calorific/commit/$commitHash'>$commitHash</a>)"); ?> &copy; 2023 xdpirate. Licensed under the <a href="https://github.com/xdpirate/calorific/blob/main/LICENSE.md" target="_blank">GNU General Public License v3.0</a>. <a href="https://github.com/xdpirate/calorific" target="_blank">Github</a>
+            Calorific <?php $commitHash = substr(file_get_contents('.git/refs/heads/main'),0,7); print("(ver. <a href='https://github.com/xdpirate/calorific/commit/$commitHash'>$commitHash</a>)"); ?> &copy; 2023 xdpirate. Licensed under the <a href="https://github.com/xdpirate/calorific/blob/main/LICENSE.md" target="_blank">GNU General Public License v3.0</a>. <a href="https://github.com/xdpirate/calorific" target="_blank">Github</a> <?php if($updaterEnabled == true) { ?><a href="./?update" title="Click to update this installation of Calorific. Requires git on the server.">Update</a><?php } ?>
         </div>
         <script src="./js/endscripts.js"></script>
     </body>

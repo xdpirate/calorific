@@ -2,7 +2,7 @@
 
 Dead simple self-hosted calorie tracker.
 
-![2023-11-29_06-35](https://github.com/xdpirate/calorific/assets/1757462/a84fd01f-6b19-4fa0-a992-6f78cdbfa06f)
+![2024-02-08_23-12](https://github.com/xdpirate/calorific/assets/1757462/9c1c1b52-b3ae-466a-9a8d-147bcef7c48c)
 
 Calorific is aimed at people who more or less know what they're doing and don't need to micromanage their macro-nutrients. Just add your calorie count.
 

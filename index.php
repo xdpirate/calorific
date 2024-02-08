@@ -239,7 +239,7 @@ if(isset($_GET['all'])) {
                 text-align: center;
             }
 
-            #footer a {
+            #footer a, #commitHistoryLink {
                 text-decoration: underline;
             }
 

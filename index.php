@@ -67,6 +67,11 @@ if(isset($_GET['all'])) {
                 background-color: #2e3440;
                 color: #e5e9f0;
                 font-family: Arial, Helvetica, sans-serif;
+                box-sizing: border-box;
+            }
+
+            *, *:before, *:after {
+                box-sizing: inherit;
             }
 
             a, a:visited {
@@ -91,23 +96,34 @@ if(isset($_GET['all'])) {
                 margin-bottom: 20px;
             }
 
+            div.contentDiv {
+                width: 100%;
+            }
+
             div.miniboxwrapper {
                 text-align: center;
             }
 
-            div.minibox {
+            div.minibox, div.foodlist {
                 display: inline-block;
                 padding: 1em;
                 border: 1px solid #e5e9f0;
                 border-radius: 1em;
-                width: fit-content;
                 margin: auto;
+                line-height: 1.8em;
+                vertical-align: middle;
+            }
+            
+            div.minibox {
+                text-align: center;
+                width: fit-content;
                 margin-top: 1em;
                 margin-left: 0.5em;
                 margin-right: 0.5em;
-                line-height: 1.8em;
-                text-align: center;
-                vertical-align: middle;
+            }
+
+            div.foodlist {
+                margin-top: 1em;
             }
             
             summary {
@@ -118,9 +134,10 @@ if(isset($_GET['all'])) {
             }
 
             div.wide {
-                width: 90%;
+                width: 100%;
                 line-height: 1em;
             }
+            
 
             div.wide > table {
                 text-align: left;
@@ -387,6 +404,7 @@ if(isset($_GET['all'])) {
                         <input id="submitMealBtn" type="submit" value="Log meal">
                     </form>
                 </div>
+
                 <div id="savedMealsDiv" class="contentDiv hidden">
                     <div class="miniboxwrapper">
                         <div class="minibox">
@@ -437,47 +455,48 @@ if(isset($_GET['all'])) {
                                 <input id="submitSavedMealFromIngrBtn" type="submit" value="Save built meal"<?php if($numrows == 0) { ?> disabled<?php }?>>
                             </form>
                         </div>
-
-                        <div class="minibox wide">
-                            <b>🍽️ Saved meals</b><hr>
-                            <div style="max-height: 12em; overflow-y: auto;">
-                                <table>
-                                    <thead>
-                                        <th>⚙️</th>
-                                        <th>Meal name</th>
-                                        <th>kcal</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $numrows = mysqli_num_rows($resMeals); 
-                                            for($i = 0; $i < $numrows; $i++) {
-                                                $id = mysqli_result($resMeals,$i,"ID");
-                                                $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
-                                                $kcal = mysqli_result($resMeals,$i,"kcal");
-                
-                                                print("
-                                                    <tr>
-                                                        <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='meals' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
-                                                        <td>$name</td>
-                                                        <td>$kcal</td>
-                                                    </tr>
-                                                ");
-                                            }
-                                            
+                    </div>
+                    
+                    <div class="foodlist wide">
+                        <div style="width: 100%; text-align: center;"><b>🍽️ Saved meals</b></div><hr>
+                        <div style="max-height: 12em; overflow-y: auto;">
+                            <table>
+                                <thead>
+                                    <th>⚙️</th>
+                                    <th>Meal name</th>
+                                    <th>kcal</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $numrows = mysqli_num_rows($resMeals); 
+                                        for($i = 0; $i < $numrows; $i++) {
+                                            $id = mysqli_result($resMeals,$i,"ID");
+                                            $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
+                                            $kcal = mysqli_result($resMeals,$i,"kcal");
+            
                                             print("
                                                 <tr>
-                                                    <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
+                                                    <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='meals' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
+                                                    <td>$name</td>
+                                                    <td>$kcal</td>
                                                 </tr>
                                             ");
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        }
+                                        
+                                        print("
+                                            <tr>
+                                                <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
+                                            </tr>
+                                        ");
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
                 <div id="savedIngredientsDiv" class="contentDiv hidden">
-                <div class="miniboxwrapper">
+                    <div class="miniboxwrapper">
                         <div class="minibox">
                             <form method="GET" action=".">
                                 <b>🥗 Save an ingredient</b><hr>
@@ -490,42 +509,42 @@ if(isset($_GET['all'])) {
                                 <input id="submitSavedIngrBtn" type="submit" value="Save ingredient">
                             </form>
                         </div>
+                    </div>
 
-                        <div class="minibox wide">
-                            <b>🥔 Saved ingredients</b><hr>
-                            <div style="max-height: 12em; overflow-y: auto;">
-                                <table>
-                                    <thead>
-                                        <th>⚙️</th>
-                                        <th>Ingredient name</th>
-                                        <th>kcal pr. 100 g/ml</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $numrows = mysqli_num_rows($resIngredients); 
-                                            for($i = 0; $i < $numrows; $i++) {
-                                                $id = mysqli_result($resIngredients,$i,"ID");
-                                                $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
-                                                $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
-                
-                                                print("
-                                                    <tr>
-                                                        <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
-                                                        <td>$name</td>
-                                                        <td>$kcalPer100</td>
-                                                    </tr>
-                                                ");
-                                            }
-                                            
+                    <div class="foodlist wide">
+                        <div style="width: 100%; text-align: center;"><b>🥔 Saved ingredients</b></div><hr>
+                        <div style="max-height: 12em; overflow-y: auto;">
+                            <table>
+                                <thead>
+                                    <th>⚙️</th>
+                                    <th>Ingredient name</th>
+                                    <th>kcal pr. 100 g/ml</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $numrows = mysqli_num_rows($resIngredients); 
+                                        for($i = 0; $i < $numrows; $i++) {
+                                            $id = mysqli_result($resIngredients,$i,"ID");
+                                            $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
+                                            $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+            
                                             print("
                                                 <tr>
-                                                    <td colspan='3' class='tableFooter'><b>Total saved ingredients:</b> $numrows</td>
+                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
+                                                    <td>$name</td>
+                                                    <td>$kcalPer100</td>
                                                 </tr>
                                             ");
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        }
+                                        
+                                        print("
+                                            <tr>
+                                                <td colspan='3' class='tableFooter'><b>Total saved ingredients:</b> $numrows</td>
+                                            </tr>
+                                        ");
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

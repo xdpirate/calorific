@@ -75,7 +75,7 @@ if($updaterEnabled == true) {
                     <div>
                         Success! This installation of Calorific has been updated to <a href='https://github.com/xdpirate/calorific/commit/$commitHash' target='_blank'><b><code>$commitHash</code></b></a>.<br /><br />
                         To avoid errors from stale cache entries in your browser, it's a good idea to clear the cache once you exit the updater. You can do this by pressing Ctrl+F5, or by holding down Shift, then clicking the Refresh button in your browser toolbar with the cursor.<br /><br />
-                        <a href='https://github.com/xdpirate/calorific/commits/main' target='_blank'>See commit history</a><br /><br />
+                        <a id='commitHistoryLink' href='https://github.com/xdpirate/calorific/commits/main' target='_blank'>See commit history</a><br /><br />
                         <input type='button' value='Return to Calorific' onclick='window.location.href=\".\";'>
                     </div>
                 ");

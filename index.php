@@ -600,7 +600,7 @@ if(isset($_GET['all'])) {
                                                 <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
-                                        <td>$date $time</td>
+                                        <td>$time</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
                                     </tr>

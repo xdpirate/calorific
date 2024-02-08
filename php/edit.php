@@ -2,10 +2,12 @@
 if(isset($_GET['edit'])) {
     if($_GET['edit'] == "log") {
         $id = mysqli_real_escape_string($link, $_GET['id']);
+        $date = mysqli_real_escape_string($link, $_GET['editLogDate']);
+        $time = mysqli_real_escape_string($link, $_GET['editLogTime']);
         $description = mysqli_real_escape_string($link, $_GET['editLogDescription']);
         $kcal = mysqli_real_escape_string($link, $_GET['editLogKcal']);
 
-        mysqli_query($link, "UPDATE `history` SET description = '$description', kcal = '$kcal' WHERE ID=$id");
+        mysqli_query($link, "UPDATE `history` SET time = '$date $time:00', description = '$description', kcal = '$kcal' WHERE ID=$id");
 
         header("Location: ./?t=log");
     } elseif($_GET['edit'] == "meal") {

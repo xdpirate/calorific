@@ -81,11 +81,15 @@ function registerButtons() {
     let editEntry = function() {
         let src = this.getAttribute("data-src");
         let id = this.getAttribute("data-id");
+        let date = this.getAttribute("data-date");
+        let time = this.getAttribute("data-time");
         let name = this.getAttribute("data-name");
         let kcal = Number(this.getAttribute("data-kcal"));
 
         if(src == "log") {
             document.querySelector("#hiddenEditLogIDField").value = id;
+            document.querySelector("#editLogDate").value = date;
+            document.querySelector("#editLogTime").value = time;
             document.querySelector("#editLogDescription").value = name;
             document.querySelector("#editLogKcal").value = kcal;
 

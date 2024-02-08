@@ -256,6 +256,10 @@ if(isset($_GET['all'])) {
                 <span class="closeBtn" title="Close" onclick="document.getElementById('editLogDialog').close()">❌</span>
                 <b>Edit log entry</b><br /><br />
                 
+                <label for="editLogDate">Date and time:</label><br />
+                <input type="date" name="editLogDate" id="editLogDate">
+                <input type="time" name="editLogTime" id="editLogTime"><br /><br />
+
                 <label for="editLogDescription">Description:</label><br />
                 <input type="text" placeholder="Description" name="editLogDescription" id="editLogDescription"><br /><br />
                 
@@ -530,7 +534,8 @@ if(isset($_GET['all'])) {
                             for($i = 0; $i < $numrows; $i++) {
                                 $id = mysqli_result($resToday,$i,"ID");
                                 $timestamp = mysqli_result($resToday,$i,"time");
-                                $timestamp = date("H:i", strtotime($timestamp));
+                                $date = date("Y-m-d", strtotime($timestamp));
+                                $time = date("H:i", strtotime($timestamp));
                                 $description = mysqli_result($resToday,$i,"description");
                                 $kcal = mysqli_result($resToday,$i,"kcal");
                                 $dailyTotal += $kcal;
@@ -541,11 +546,11 @@ if(isset($_GET['all'])) {
                                             <details>
                                             <summary>⚙️</summary>
                                                 <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
-                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' title='Edit'>✏️</span>
+                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
                                                 <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
-                                        <td>$timestamp</td>
+                                        <td>$time</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
                                     </tr>
@@ -579,7 +584,8 @@ if(isset($_GET['all'])) {
                             for($i = 0; $i < $numrows; $i++) {
                                 $id = mysqli_result($resYesterday,$i,"ID");
                                 $timestamp = mysqli_result($resYesterday,$i,"time");
-                                $timestamp = date("H:i", strtotime($timestamp));
+                                $date = date("Y-m-d", strtotime($timestamp));
+                                $time = date("H:i", strtotime($timestamp));
                                 $description = mysqli_result($resYesterday,$i,"description");
                                 $kcal = mysqli_result($resYesterday,$i,"kcal");
                                 $dailyTotal += $kcal;
@@ -590,11 +596,11 @@ if(isset($_GET['all'])) {
                                             <details>
                                             <summary>⚙️</summary>
                                                 <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
-                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' title='Edit'>✏️</span>
+                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
                                                 <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
-                                        <td>$timestamp</td>
+                                        <td>$date $time</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
                                     </tr>
@@ -638,6 +644,8 @@ if(isset($_GET['all'])) {
                             for($i = 0; $i < $numrows; $i++) {
                                 $id = mysqli_result($resHistory,$i,"ID");
                                 $timestamp = mysqli_result($resHistory,$i,"time");
+                                $date = date("Y-m-d", strtotime($timestamp));
+                                $time = date("H:i", strtotime($timestamp));
                                 $description = mysqli_result($resHistory,$i,"description");
                                 $kcal = mysqli_result($resHistory,$i,"kcal");
                                 $dailyTotal += $kcal;
@@ -648,11 +656,11 @@ if(isset($_GET['all'])) {
                                             <details>
                                             <summary>⚙️</summary>
                                                 <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
-                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' title='Edit'>✏️</span>
+                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
                                                 <span class='cloneBtn' data-src='meals' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
-                                        <td>$timestamp</td>
+                                        <td>$date $time</td>
                                         <td>$description</td>
                                         <td>$kcal</td>
                                     </tr>

@@ -14,4 +14,3 @@ if(isset($_GET['newSavedIngrSubmitted']) && $_GET['newSavedIngrSubmitted'] == "1
 
     header("Location: ./?t=ingredients");
 }
-?>

@@ -28,4 +28,3 @@ if(isset($_GET['newSavedMealSubmitted']) && $_GET['newSavedMealSubmitted'] == "1
 
     header("Location: ./?t=meals");
 }
-?>

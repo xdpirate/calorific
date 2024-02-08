@@ -14,4 +14,3 @@ if(isset($_GET['newMealSubmitted']) && $_GET['newMealSubmitted'] == "1") {
 
     header("Location: ./");
 }
-?>

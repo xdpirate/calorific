@@ -18,4 +18,3 @@ if(isset($_GET['delete']) && isset($_GET['from'])) {
 
     header("Location: ./?t=$_GET[from]");
 }
-?>

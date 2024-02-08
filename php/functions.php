@@ -10,4 +10,3 @@ function mysqli_result($res,$row=0,$col=0){
     }
     return false;
 }
-?>

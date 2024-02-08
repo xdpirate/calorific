@@ -30,4 +30,3 @@ if(isset($_GET['edit'])) {
         die("Malformed request");
     }
 }
-?>

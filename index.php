@@ -52,7 +52,7 @@ $resHistory = "";
 if(isset($_GET['all'])) {
     $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC;");
 } else {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 20;");
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 10;");
 }
 
 ?><!DOCTYPE html>

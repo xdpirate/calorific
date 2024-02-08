@@ -440,37 +440,39 @@ if(isset($_GET['all'])) {
 
                         <div class="minibox wide">
                             <b>🍽️ Saved meals</b><hr>
-                            <table>
-                                <thead>
-                                    <th>⚙️</th>
-                                    <th>Meal name</th>
-                                    <th>kcal</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $numrows = mysqli_num_rows($resMeals); 
-                                        for($i = 0; $i < $numrows; $i++) {
-                                            $id = mysqli_result($resMeals,$i,"ID");
-                                            $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
-                                            $kcal = mysqli_result($resMeals,$i,"kcal");
-            
+                            <div style="max-height: 12em; overflow-y: auto;">
+                                <table>
+                                    <thead>
+                                        <th>⚙️</th>
+                                        <th>Meal name</th>
+                                        <th>kcal</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $numrows = mysqli_num_rows($resMeals); 
+                                            for($i = 0; $i < $numrows; $i++) {
+                                                $id = mysqli_result($resMeals,$i,"ID");
+                                                $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
+                                                $kcal = mysqli_result($resMeals,$i,"kcal");
+                
+                                                print("
+                                                    <tr>
+                                                        <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='meals' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
+                                                        <td>$name</td>
+                                                        <td>$kcal</td>
+                                                    </tr>
+                                                ");
+                                            }
+                                            
                                             print("
                                                 <tr>
-                                                    <td><span class='delBtn' data-src='meals' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='meals' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
-                                                    <td>$name</td>
-                                                    <td>$kcal</td>
+                                                    <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
                                                 </tr>
                                             ");
-                                        }
-                                        
-                                        print("
-                                            <tr>
-                                                <td colspan='3' class='tableFooter'><b>Total saved meals:</b> $numrows</td>
-                                            </tr>
-                                        ");
-                                    ?>
-                                </tbody>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -491,37 +493,39 @@ if(isset($_GET['all'])) {
 
                         <div class="minibox wide">
                             <b>🥔 Saved ingredients</b><hr>
-                            <table>
-                                <thead>
-                                    <th>⚙️</th>
-                                    <th>Ingredient name</th>
-                                    <th>kcal pr. 100 g/ml</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $numrows = mysqli_num_rows($resIngredients); 
-                                        for($i = 0; $i < $numrows; $i++) {
-                                            $id = mysqli_result($resIngredients,$i,"ID");
-                                            $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
-                                            $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
-            
+                            <div style="max-height: 12em; overflow-y: auto;">
+                                <table>
+                                    <thead>
+                                        <th>⚙️</th>
+                                        <th>Ingredient name</th>
+                                        <th>kcal pr. 100 g/ml</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $numrows = mysqli_num_rows($resIngredients); 
+                                            for($i = 0; $i < $numrows; $i++) {
+                                                $id = mysqli_result($resIngredients,$i,"ID");
+                                                $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
+                                                $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
+                
+                                                print("
+                                                    <tr>
+                                                        <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
+                                                        <td>$name</td>
+                                                        <td>$kcalPer100</td>
+                                                    </tr>
+                                                ");
+                                            }
+                                            
                                             print("
                                                 <tr>
-                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
-                                                    <td>$name</td>
-                                                    <td>$kcalPer100</td>
+                                                    <td colspan='3' class='tableFooter'><b>Total saved ingredients:</b> $numrows</td>
                                                 </tr>
                                             ");
-                                        }
-                                        
-                                        print("
-                                            <tr>
-                                                <td colspan='3' class='tableFooter'><b>Total saved ingredients:</b> $numrows</td>
-                                            </tr>
-                                        ");
-                                    ?>
-                                </tbody>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

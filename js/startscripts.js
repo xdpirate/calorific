@@ -6,6 +6,17 @@ function registerTabs() {
             if(this == tabspans[i]) {
                 tabspans[i].classList.add("selected");
                 document.querySelector("#" + tabspans[i].getAttribute("data-div")).classList.remove("hidden");
+
+                const url = new URL(window.location);
+                if(this.id == "logMealTab") {
+                    url.searchParams.set("t", "log");
+                } else if(this.id == "savedMealsTab") {
+                    url.searchParams.set("t", "meals");
+                } else if(this.id == "savedIngredientsTab") {
+                    url.searchParams.set("t", "ingredients");
+                }
+
+                window.history.replaceState({}, "", url);
             } else {
                 tabspans[i].classList.remove("selected");
                 document.querySelector("#" + tabspans[i].getAttribute("data-div")).classList.add("hidden");

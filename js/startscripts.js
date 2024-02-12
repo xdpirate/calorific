@@ -144,6 +144,12 @@ function registerButtons() {
         document.querySelector("#addMealDescription").value = "";
         document.querySelector("#addMealTotalKcal").value = 0;
     });
+
+    document.querySelector("#editLogTimestampNow").addEventListener("click", function() {
+        let now = new Date();
+        document.querySelector("#editLogDate").value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+        document.querySelector("#editLogTime").value = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+    });
 }
 
 function initialChangeTab() {

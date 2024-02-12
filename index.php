@@ -113,6 +113,14 @@ if(isset($_GET['all'])) {
                 line-height: 1.8em;
                 vertical-align: middle;
             }
+
+            div.flexbox {
+                display: flex;
+            }
+
+            .flexgrow {
+                flex-grow: 1;
+            }
             
             div.minibox {
                 text-align: center;
@@ -208,7 +216,7 @@ if(isset($_GET['all'])) {
                 text-align: right;
             }
 
-            input[type=submit]:not(#updateSubmitBtn) {
+            input[type=submit]:not(#updateSubmitBtn, #editLogSubmitBtn) {
                 width: 100%;
                 height: 3em;
                 margin-top: 1em;
@@ -260,6 +268,15 @@ if(isset($_GET['all'])) {
                 text-decoration: underline;
             }
 
+            #editLogDescription {
+                width: 100%;
+            }
+
+            #editLogKcal {
+                margin-right: 1em;
+                width: 5em;
+            }
+
             /* Phone styles */
             @media all and (max-width: 1000px) {
                 #everything {
@@ -283,15 +300,17 @@ if(isset($_GET['all'])) {
                 
                 <label for="editLogDate">Date and time:</label><br />
                 <input type="date" name="editLogDate" id="editLogDate">
-                <input type="time" name="editLogTime" id="editLogTime"><br /><br />
+                <input type="time" name="editLogTime" id="editLogTime">
+                <input type="button" name="editLogTimestampNow" id="editLogTimestampNow" value="Now">
+                <br /><br />
 
                 <label for="editLogDescription">Description:</label><br />
                 <input type="text" placeholder="Description" name="editLogDescription" id="editLogDescription"><br /><br />
                 
                 <label for="editLogKcal">Kcal:</label><br />
-                <input type="number" name="editLogKcal" id="editLogKcal"><br /><br />
-
-                <input type="submit" value="OK">
+                <div class="flexbox">
+                    <input type="number" name="editLogKcal" id="editLogKcal"> <input type="submit" class="flexgrow" value="OK" id="editLogSubmitBtn" name="editLogSubmitBtn">
+                </div>
             </form>
         </dialog><?php } ?>
         <dialog id="editMealIngredientDialog">

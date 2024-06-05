@@ -401,7 +401,7 @@ if(isset($_GET['all'])) {
                                             print("<option disabled>No saved ingredients</option>");
                                         } else {
                                             for($i = 0; $i < $numrows; $i++) {
-                                                $name = mysqli_result($resIngredients,$i,"name");
+                                                $name = str_replace("'", "&apos;", mysqli_result($resIngredients,$i,"name"));
                                                 $kcalPer100 = mysqli_result($resIngredients,$i,"kcalPer100");
 
                                                 print("

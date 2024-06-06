@@ -27,3 +27,10 @@ mysqli_query($link, "
         `time` datetime NOT NULL,
         PRIMARY KEY (`ID`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+
+mysqli_query($link, "
+    CREATE TABLE IF NOT EXISTS `settings` (
+        `key` varchar(255) NOT NULL,
+        `value` varchar(255) NOT NULL,
+        PRIMARY KEY (`key`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");

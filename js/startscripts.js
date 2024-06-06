@@ -14,6 +14,8 @@ function registerTabs() {
                     url.searchParams.set("t", "meals");
                 } else if(this.id == "savedIngredientsTab") {
                     url.searchParams.set("t", "ingredients");
+                } else if(this.id == "settingsTab") {
+                    url.searchParams.set("t", "settings");
                 }
 
                 window.history.replaceState({}, "", url);
@@ -173,6 +175,8 @@ function initialChangeTab() {
             document.querySelector("#savedMealsTab").click();
         } else if(params.get("t") == "ingredients") {
             document.querySelector("#savedIngredientsTab").click();
+        } else if(params.get("t") == "settings") {
+            document.querySelector("#settingsTab").click();
         }
     }
 }

@@ -13,6 +13,7 @@ Calorific is aimed at people who more or less know what they're doing and don't 
 * Save commonly used ingredients
 * Build log entries from saved meals and ingredients lists
 * Build saved meals from ingredients list
+* Set a daily calorie goal to see your progress throughout the day
 * [Nord](https://www.nordtheme.com/)
 * Built-in update mechanism
 

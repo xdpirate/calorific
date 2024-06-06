@@ -42,6 +42,7 @@ require("./php/addsavedmeal.php");
 require("./php/addsavedingredient.php");
 require("./php/edit.php");
 require("./php/delete.php");
+require("./php/savesettings.php");
 
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
 $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `name` ASC;");
@@ -53,6 +54,15 @@ if(isset($_GET['all'])) {
     $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC;");
 } else {
     $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 10;");
+}
+
+$resSettings = mysqli_query($link, "SELECT * FROM `settings`;");
+$calorieGoal = 0;
+
+for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
+    if(mysqli_result($resSettings, $i, "key") == "calorieGoal") {
+        $calorieGoal = mysqli_result($resSettings, $i, "value");
+    }
 }
 
 ?><!DOCTYPE html>
@@ -277,6 +287,22 @@ if(isset($_GET['all'])) {
                 width: 5em;
             }
 
+            .calorieGoalPositive, .calorieGoalNegative, .calorieGoalNeutral {
+                font-weight: bold;
+            }
+
+            .calorieGoalPositive {
+                color: lightgreen;
+            }
+
+            .calorieGoalNegative {
+                color: coral;
+            }
+            
+            .calorieGoalNeutral {
+                color: orange;
+            }
+
             /* Phone styles */
             @media all and (max-width: 1000px) {
                 #everything {
@@ -339,6 +365,7 @@ if(isset($_GET['all'])) {
                 <div id="logMealTab" data-div="logMealDiv" class="tab selected">📑 Log</div> 
                 <div id="savedMealsTab" data-div="savedMealsDiv" class="tab">🍲 Meals</div> 
                 <div id="savedIngredientsTab" data-div="savedIngredientsDiv" class="tab">🥔 Ingredients</div> 
+                <div id="settingsTab" data-div="settingsDiv" class="tab">⚙️ Settings</div> 
             </div>
 
             <div id="tabcontents">
@@ -567,6 +594,21 @@ if(isset($_GET['all'])) {
                         </div>
                     </div>
                 </div>
+
+                <div id="settingsDiv" class="contentDiv hidden">
+                    <form method="GET" action=".">
+                        <div class="miniboxwrapper">
+                            <div class="minibox">
+                                <b>🏆 Daily calorie goal</b><hr />
+                                Enabling a daily calorie goal will show how much under/over you are in relation to your goal each day, next to the daily calorie total. Being <i>under</i> your goal will show the difference in <span class="calorieGoalNeutral">orange</span>. Being <i>over</i> your goal will show the difference in <span class="calorieGoalNegative">red</span>. Being within 10% of your goal in either direction will show the difference in <span class="calorieGoalPositive">green</span>.<br />Set to 0 to disable this function.<br />
+                                <br />
+                                Daily calorie goal: <input type="number" name="calorieGoalNum" id="calorieGoalNum" min="0" value="<?php print($calorieGoal); ?>">
+                            </div>
+                        </div>
+                        <input type="hidden" name="settingsSubmitted" id="settingsSubmitted" value="1">
+                        <input type="submit" value="Save settings">
+                    </form>
+                </div>
             </div>
 
             <h2 id="todayHeader">Today</h2>
@@ -608,10 +650,29 @@ if(isset($_GET['all'])) {
                                     </tr>
                                 ");
                             }
+
+                            $calorieGoalInfo = "";
+                            if($calorieGoal > 0) {
+                                $goalRangeMin = round($calorieGoal * 0.9);
+                                $goalRangeMax = round($calorieGoal * 1.1);
+
+                                $difference = $dailyTotal - $calorieGoal;
+                                if($difference > -1) {
+                                    $difference = "+" . $difference;
+                                }
+
+                                if($dailyTotal <= $goalRangeMin) {
+                                    $calorieGoalInfo = " (<span class='calorieGoalNeutral' title='Not reached the calorie goal'>$difference</span>)";
+                                } elseif($dailyTotal > $goalRangeMin && $dailyTotal < $goalRangeMax) {
+                                    $calorieGoalInfo = " (<span class='calorieGoalPositive' title='Within 10% of the calorie goal'>$difference</span>)";
+                                } elseif($dailyTotal >= $goalRangeMax) {
+                                    $calorieGoalInfo = " (<span class='calorieGoalNegative' title='Over the calorie goal'>$difference</span>)";
+                                }
+                            }
                             
                             print("
                                 <tr>
-                                    <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal</td>
+                                    <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal$calorieGoalInfo</td>
                                 </tr>
                             ");
                         ?>
@@ -659,9 +720,28 @@ if(isset($_GET['all'])) {
                                 ");
                             }
 
+                            $calorieGoalInfo = "";
+                            if($calorieGoal > 0) {
+                                $goalRangeMin = round($calorieGoal * 0.9);
+                                $goalRangeMax = round($calorieGoal * 1.1);
+
+                                $difference = $dailyTotal - $calorieGoal;
+                                if($difference > -1) {
+                                    $difference = "+" . $difference;
+                                }
+
+                                if($dailyTotal <= $goalRangeMin) {
+                                    $calorieGoalInfo = " (<span class='calorieGoalNeutral' title='Not reached the calorie goal'>$difference</span>)";
+                                } elseif($dailyTotal > $goalRangeMin && $dailyTotal < $goalRangeMax) {
+                                    $calorieGoalInfo = " (<span class='calorieGoalPositive' title='Within 10% of the calorie goal'>$difference</span>)";
+                                } elseif($dailyTotal >= $goalRangeMax) {
+                                    $calorieGoalInfo = " (<span class='calorieGoalNegative' title='Over the calorie goal'>$difference</span>)";
+                                }
+                            }
+
                             print("
                                 <tr>
-                                    <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal</td>
+                                    <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal$calorieGoalInfo</td>
                                 </tr>
                             ");
                         ?>

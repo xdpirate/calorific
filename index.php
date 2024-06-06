@@ -37,6 +37,19 @@ if(!$link) {
 }
 
 require("./php/dbsetup.php");
+
+$resSettings = mysqli_query($link, "SELECT * FROM `settings`;");
+$calorieGoal = 0;
+$hourOffset = 0;
+
+for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
+    if(mysqli_result($resSettings, $i, "key") == "calorieGoal") {
+        $calorieGoal = mysqli_result($resSettings, $i, "value");
+    } elseif(mysqli_result($resSettings, $i, "key") == "hourOffset") {
+        $hourOffset = mysqli_result($resSettings, $i, "value");
+    }
+}
+
 require("./php/addmeal.php");
 require("./php/addsavedmeal.php");
 require("./php/addsavedingredient.php");
@@ -44,25 +57,17 @@ require("./php/edit.php");
 require("./php/delete.php");
 require("./php/savesettings.php");
 
+
 $resMeals = mysqli_query($link, "SELECT * FROM `meals` ORDER BY `name` ASC;");
 $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `name` ASC;");
-$resToday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(NOW() AS DATE) ORDER BY `time` ASC;");
-$resYesterday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` ASC");
+$resToday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR) AS DATE) ORDER BY `time` ASC;");
+$resYesterday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` ASC");
 $resHistory = "";
 
 if(isset($_GET['all'])) {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC;");
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC;");
 } else {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(NOW(), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 10;");
-}
-
-$resSettings = mysqli_query($link, "SELECT * FROM `settings`;");
-$calorieGoal = 0;
-
-for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
-    if(mysqli_result($resSettings, $i, "key") == "calorieGoal") {
-        $calorieGoal = mysqli_result($resSettings, $i, "value");
-    }
+    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 10;");
 }
 
 ?><!DOCTYPE html>
@@ -316,6 +321,10 @@ for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
     </head>
 
     <body>
+        <script>
+            let hourOffset = <?php print($hourOffset); ?>;
+        </script>
+        
         <?php if(!isset($_GET['update'])) { ?>
         <dialog id="editLogDialog">
             <form method="GET" action="./">
@@ -600,9 +609,15 @@ for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
                         <div class="miniboxwrapper">
                             <div class="minibox">
                                 <b>🏆 Daily calorie goal</b><hr />
-                                Enabling a daily calorie goal will show how much under/over you are in relation to your goal each day, next to the daily calorie total. Being <i>under</i> your goal will show the difference in <span class="calorieGoalNeutral">orange</span>. Being <i>over</i> your goal will show the difference in <span class="calorieGoalNegative">red</span>. Being within 10% of your goal in either direction will show the difference in <span class="calorieGoalPositive">green</span>.<br />Set to 0 to disable this function.<br />
+                                Enabling a daily calorie goal will show how much under/over you are in relation to your goal each day, next to the daily calorie total. Being <i>under</i> your goal will show the difference in <span class="calorieGoalNeutral">orange</span>. Being <i>over</i> your goal will show the difference in <span class="calorieGoalNegative">red</span>. Being within 10% of your goal in either direction will show the difference in <span class="calorieGoalPositive">green</span>. Set to 0 to disable this function.<br />
                                 <br />
                                 Daily calorie goal: <input type="number" name="calorieGoalNum" id="calorieGoalNum" min="0" value="<?php print($calorieGoal); ?>">
+                            </div>
+                            <div class="minibox">
+                                <b>🕔 Hour offset</b><hr />
+                                If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24.<br />
+                                <br />
+                                Hour offset: <input type="number" name="hourOffsetNum" id="hourOffsetNum" min="-24" max="24" value="<?php print($hourOffset); ?>">
                             </div>
                         </div>
                         <input type="hidden" name="settingsSubmitted" id="settingsSubmitted" value="1">

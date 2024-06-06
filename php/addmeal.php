@@ -9,7 +9,7 @@ if(isset($_GET['newMealSubmitted']) && $_GET['newMealSubmitted'] == "1") {
 
 
     $mealTotalKcal = mysqli_real_escape_string($link, trim($_GET["addMealTotalKcal"]));
-    mysqli_query($link, "INSERT INTO history (`description`,`kcal`, `time`) VALUES ('$mealDescription','$mealTotalKcal',NOW())");
+    mysqli_query($link, "INSERT INTO history (`description`,`kcal`, `time`) VALUES ('$mealDescription','$mealTotalKcal',DATE_ADD(NOW(), INTERVAL $hourOffset HOUR))");
     mysqli_close($link);
 
     header("Location: ./");

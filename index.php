@@ -176,6 +176,7 @@ if(isset($_GET['all'])) {
             div#tabcontents {
                 border-bottom-left-radius: 0.2em;
                 border-bottom-right-radius: 0.2em;
+                border-top-right-radius: 0.2em;
             }
             
             div.tab {

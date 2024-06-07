@@ -625,14 +625,14 @@ if(isset($_GET['all'])) {
                     <form method="GET" action=".">
                         <div class="miniboxwrapper">
                             <div class="minibox">
-                                <b>🏆 Daily calorie goal</b> <sup><span id="calorieGoalExplanationToggler" class="explanationToggler" title="Show explanation">❓</span></sup><hr />
+                                <b>🏆 Daily calorie goal</b> <sup><span id="calorieGoalExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
                                 <div class="optionExplanation hidden" id="calorieGoalExplanation">
                                     Enabling a daily calorie goal will show how much under/over you are in relation to your goal each day, next to the daily calorie total. Being <i>under</i> your goal will show the difference in <span class="calorieGoalNeutral">orange</span>. Being <i>over</i> your goal will show the difference in <span class="calorieGoalNegative">red</span>. Being within 10% of your goal in either direction will show the difference in <span class="calorieGoalPositive">green</span>. Set to 0 to disable this function.
                                 </div>
                                 Daily calorie goal: <input type="number" name="calorieGoalNum" id="calorieGoalNum" min="0" value="<?php print($calorieGoal); ?>">
                             </div>
                             <div class="minibox">
-                                <b>🕔 Hour offset</b> <sup><span id="hourOffsetExplanationToggler" class="explanationToggler" title="Show explanation">❓</span></sup><hr />
+                                <b>🕔 Hour offset</b> <sup><span id="hourOffsetExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
                                 <div class="optionExplanation hidden" id="hourOffsetExplanation">
                                     If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24.
                                 </div>

@@ -165,6 +165,14 @@ function registerButtons() {
         document.querySelector("#editLogDate").value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
         document.querySelector("#editLogTime").value = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
     });
+
+    document.querySelector("#calorieGoalExplanationToggler").addEventListener("click", function() {
+        document.querySelector("#calorieGoalExplanation").classList.toggle("hidden");
+    });
+
+    document.querySelector("#hourOffsetExplanationToggler").addEventListener("click", function() {
+        document.querySelector("#hourOffsetExplanation").classList.toggle("hidden");
+    });
 }
 
 function initialChangeTab() {

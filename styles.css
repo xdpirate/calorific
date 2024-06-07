@@ -1,0 +1,248 @@
+html,body,input,select,dialog {
+    background-color: #2e3440;
+    color: #e5e9f0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+a, a:visited {
+    color: #e5e9f0;
+    text-decoration: none;
+}
+
+h1 {
+    margin-bottom: 1em;
+}
+
+#everything {
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#updateWrapper {
+    border: 1px solid #e5e9f0;;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+div.contentDiv {
+    width: 100%;
+}
+
+div.miniboxwrapper {
+    text-align: center;
+}
+
+div.minibox, div.foodlist {
+    display: inline-block;
+    padding: 1em;
+    border: 1px solid #e5e9f0;
+    border-radius: 1em;
+    margin: auto;
+    line-height: 1.8em;
+    vertical-align: middle;
+}
+
+div.flexbox {
+    display: flex;
+}
+
+.flexgrow {
+    flex-grow: 1;
+}
+
+div.minibox {
+    text-align: center;
+    width: fit-content;
+    margin-top: 1em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+div.foodlist {
+    margin-top: 1em;
+}
+
+summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline;
+    user-select: none;
+}
+
+div.wide {
+    width: 100%;
+    line-height: 1em;
+}
+
+div.wide > table {
+    text-align: left;
+}
+
+div.tab, div#tabcontents {
+    padding: 0.8em;
+    border-left: 1px solid #e5e9f0;
+    border-right: 1px solid #e5e9f0;
+    border-top: 1px solid #e5e9f0;
+}
+
+div#tabcontents {
+    border-bottom-left-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    border-top-right-radius: 0.2em;
+    border-bottom: 1px solid #e5e9f0;
+    margin-top: -0.06em;
+}
+
+div.tab {
+    margin-right: 0.8em;
+    z-index: 5;
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    border-top-left-radius: 0.2em;
+    border-top-right-radius: 0.2em;
+}
+
+span.delBtn, span.closeBtn, span.editBtn, span.cloneBtn, span.explanationToggler {
+    cursor: pointer;
+}
+
+span.closeBtn {
+    float: right;
+}
+
+span.closeBtn, input#clearLogFieldsBtn {
+    margin-left: 1em;
+}
+
+div#mealstoday, div#mealhistory {
+    margin-top: 0.75em;
+}
+
+div.tab.selected, div#tabcontents {
+    background-color: #434c5e;
+}
+
+.hidden {
+    display: none;
+}
+
+select {
+    max-width: 20em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 0.4em;
+}
+
+.tableFooter {
+    width: 100%;
+    text-align: right;
+}
+
+input[type=submit]:not(#updateSubmitBtn, #editLogSubmitBtn) {
+    width: 100%;
+    height: 3em;
+    margin-top: 1em;
+}
+
+input[type=number] {
+    width: 5em;
+}
+
+th {
+    background-color: #4c566a;
+    text-align: left;
+}
+
+tr:nth-child(odd) {
+    background: #434c5e;
+}
+
+tr:nth-child(even) {
+    background: #4c566a;
+}
+
+td:first-child, th:first-child, td:nth-child(2), th:nth-child(2) {
+    width: 1%;
+    white-space: nowrap;
+}
+
+td:last-child, th:last-child {
+    text-align: right;
+}
+
+dialog {
+    border: 1px solid #e5e9f0;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(5px);
+}
+
+input, select {
+    border: 1px solid #e5e9f0;
+    border-radius: 5px;
+    padding: 0.3em;
+}
+
+#footer {
+    width: 98%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: smaller;
+    text-align: center;
+}
+
+#footer a, #commitHistoryLink {
+    text-decoration: underline;
+}
+
+#editLogDescription {
+    width: 100%;
+}
+
+#editLogKcal {
+    margin-right: 1em;
+    width: 5em;
+}
+
+.optionExplanation {
+    margin-bottom: 2em;
+}
+
+.calorieGoalPositive, .calorieGoalNegative, .calorieGoalNeutral {
+    font-weight: bold;
+}
+
+.calorieGoalPositive {
+    color: lightgreen;
+}
+
+.calorieGoalNegative {
+    color: coral;
+}
+
+.calorieGoalNeutral {
+    color: orange;
+}
+
+/* Phone styles */
+@media all and (max-width: 1000px) {
+    #everything {
+        width: 100%;
+        margin: auto;
+    }
+}

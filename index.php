@@ -172,6 +172,11 @@ if(isset($_GET['all'])) {
                 border-right: 1px solid #e5e9f0;
                 border-top: 1px solid #e5e9f0;
             }
+
+            div#tabcontents {
+                border-bottom-left-radius: 0.2em;
+                border-bottom-right-radius: 0.2em;
+            }
             
             div.tab {
                 margin-right: 0.8em;
@@ -179,6 +184,8 @@ if(isset($_GET['all'])) {
                 user-select: none;
                 cursor: pointer;
                 display: inline-block;
+                border-top-left-radius: 0.2em;
+                border-top-right-radius: 0.2em;
             }
 
             span.delBtn, span.closeBtn, span.editBtn, span.cloneBtn {
@@ -269,6 +276,12 @@ if(isset($_GET['all'])) {
 
             dialog::backdrop {
                 backdrop-filter: blur(5px);
+            }
+
+            input, select {
+                border: 1px solid #e5e9f0;
+                border-radius: 5px;
+                padding: 0.3em;
             }
 
             #footer {

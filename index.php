@@ -145,8 +145,15 @@ if(isset($_GET['all'])) {
                         <input type="hidden" name="newMealSubmitted" id="newMealSubmitted" value="1">
 
                         <div>
-                            Meal description (optional): <input type="text" name="addMealDescription" id="addMealDescription" placeholder="Meal description"></input> Total kcal: <input id="addMealTotalKcal" name="addMealTotalKcal" type="number" min="0" value="0"></input> <input type="button" value="Clear" id="clearLogFieldsBtn" name="clearLogFieldsBtn"></input>
+                            <span id="mealDescriptionFloat">
+                                <input id="addMealTotalKcal" name="addMealTotalKcal" type="number" min="0" value="0"></input> kcal <input type="button" value="Clear meal" id="clearLogFieldsBtn" name="clearLogFieldsBtn"></input>
+                            </span>
+
+                            <span id="mealDescriptionSpan">
+                                <input type="text" name="addMealDescription" id="addMealDescription" placeholder="Meal description (optional)">
+                            </span>
                         </div>
+
 
                         <div class="miniboxwrapper">
                             <div class="minibox">

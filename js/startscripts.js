@@ -160,6 +160,7 @@ function registerButtons() {
     document.querySelector("#clearLogFieldsBtn").addEventListener("click", function() {
         document.querySelector("#addMealDescription").value = "";
         document.querySelector("#addMealTotalKcal").value = 0;
+        showToastNotification("✓ Meal cleared");
     });
 
     document.querySelector("#editLogTimestampNow").addEventListener("click", function() {

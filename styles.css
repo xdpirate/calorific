@@ -122,6 +122,16 @@ span.closeBtn, input#clearLogFieldsBtn {
     margin-left: 1em;
 }
 
+#mealDescriptionSpan {
+    display: block;
+    overflow: hidden;
+    padding-right: 0.5em;
+}
+
+#mealDescriptionFloat {
+    float: right;
+}
+
 div#mealstoday, div#mealhistory {
     margin-top: 0.75em;
 }
@@ -192,7 +202,7 @@ dialog::backdrop {
     backdrop-filter: blur(5px);
 }
 
-input, select {
+input, select, #toastNotification {
     border: 1px solid #e5e9f0;
     border-radius: 5px;
     padding: 0.3em;
@@ -246,8 +256,6 @@ input, select {
     background-color: #2e3440;
     color: #e5e9f0;
     text-align: center;
-    border-radius: 0.2em;
-    border: 1px solid #e5e9f0;
     padding: 0.5em;
     position: fixed;
     z-index: 1;
@@ -259,6 +267,10 @@ input, select {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#addMealDescription {
+    width: 100%;
 }
 
 @-webkit-keyframes fadein {

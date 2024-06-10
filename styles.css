@@ -249,18 +249,23 @@ input, select, #toastNotification {
     color: orange;
 }
 
+#toastContainer {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    position: fixed;
+    z-index: 1;
+    bottom: 2em;
+}
+
 #toastNotification {
     visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
+    width: fit-content;
+    margin: auto;
     background-color: #2e3440;
     color: #e5e9f0;
     text-align: center;
     padding: 0.5em;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 2em;
 }
 
 #toastNotification.show {

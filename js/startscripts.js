@@ -199,15 +199,31 @@ function initialChangeTab() {
 function notifyDBChange() {
     let params = new URLSearchParams(document.location.search);
 
-    if(params.get("t") == "settings" && params.get("saved") == 1) {
-        showToastNotification("✓ Settings saved");
-    } else if(params.get("t") == "log" && params.get("saved") == 1) {
-        showToastNotification("✓ Log entry saved");
-    } else if(params.get("t") == "meals" && params.get("saved") == 1) {
-        showToastNotification("✓ Meal saved");
-    } else if(params.get("t") == "ingredients" && params.get("saved") == 1) {
-        showToastNotification("✓ Ingredient saved");
+    let component = "";
+    if(params.get("t") == "settings") {
+        component = "Settings";
+    } else if(params.get("t") == "log") {
+        component = "Log entry";
+    } else if(params.get("t") == "meals") {
+        component = "Meal";
+    } else if(params.get("t") == "ingredients") {
+        component = "Ingredient";
+    } else {
+        return;
     }
+
+    let action = "";
+    if(params.get("saved") == 1) {
+        action = "saved";
+    } else if(params.get("edited") == 1) {
+        action = "edited";
+    } else if(params.get("deleted") == 1) {
+        action = "deleted";
+    } else {
+        return;
+    }
+    
+    showToastNotification(`✓ ${component} ${action}!`);
 }
 
 function showToastNotification(text) {

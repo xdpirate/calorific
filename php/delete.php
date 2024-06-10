@@ -16,5 +16,5 @@ if(isset($_GET['delete']) && isset($_GET['from'])) {
     mysqli_query($link, "DELETE FROM $table WHERE ID=$ID");
     mysqli_close($link);
 
-    header("Location: ./?t=$_GET[from]");
+    header("Location: ./?t=$_GET[from]&deleted=1");
 }

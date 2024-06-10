@@ -63,10 +63,11 @@ $resToday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DA
 $resYesterday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` ASC");
 $resHistory = "";
 
+$resHistoryQuery = "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC";
 if(isset($_GET['all'])) {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC;");
+    $resHistory = mysqli_query($link, $resHistoryQuery);
 } else {
-    $resHistory = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC LIMIT 10;");
+    $resHistory = mysqli_query($link, $resHistoryQuery . " LIMIT 10;");
 }
 
 ?><!DOCTYPE html>
@@ -591,6 +592,7 @@ if(isset($_GET['all'])) {
         <div id="footer">
             Calorific <?php $commitHash = substr(file_get_contents('.git/refs/heads/main'),0,7); print("(ver. <a href='https://github.com/xdpirate/calorific/commit/$commitHash'>$commitHash</a>)"); ?> &copy; 2023 xdpirate. Licensed under the <a href="https://github.com/xdpirate/calorific/blob/main/LICENSE.md" target="_blank">GNU General Public License v3.0</a>. <a href="https://github.com/xdpirate/calorific" target="_blank">Github</a> <?php if($updaterEnabled == true) { ?><a href="./?update" title="Click to update this installation of Calorific. Requires git on the server.">Update</a><?php } ?>
         </div>
+        <div id="toastNotification"></div>
         <script src="./js/endscripts.js"></script>
     </body>
 </html>

@@ -1,3 +1,5 @@
+let toastTimeout;
+
 function registerTabs() {
     let tabspans = document.querySelectorAll("div.tab");
     
@@ -39,6 +41,7 @@ function registerButtons() {
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
         document.querySelector("#addMealDescription").value += amount + "x " + name + ", ";
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
+        showToastNotification(`✓ ${amount}x ${name} added to current meal`);
     };
 
     document.getElementById("addMealAddSavedMealBtn").addEventListener("click", addMealAddSavedMeal);
@@ -52,6 +55,7 @@ function registerButtons() {
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
         document.querySelector("#addMealDescription").value += `${name} (${amount}g/ml), `;
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
+        showToastNotification(`✓ ${amount}g/ml ${name} added to current meal`);
     };
 
     document.getElementById("addMealAddSavedIngredientBtn").addEventListener("click", addMealAddSavedIngredient);
@@ -189,4 +193,16 @@ function initialChangeTab() {
             document.querySelector("#settingsTab").click();
         }
     }
+}
+
+function showToastNotification(text) {
+    clearTimeout(toastTimeout);
+
+    let toastNotification = document.getElementById("toastNotification");
+    toastNotification.innerHTML = text;
+    toastNotification.classList.add("show");
+    
+    toastTimeout = setTimeout(function(){ 
+        toastNotification.classList.remove("show"); 
+    }, 3000);
 }

@@ -12,5 +12,5 @@ if(isset($_GET['newMealSubmitted']) && $_GET['newMealSubmitted'] == "1") {
     mysqli_query($link, "INSERT INTO history (`description`,`kcal`, `time`) VALUES ('$mealDescription','$mealTotalKcal',DATE_ADD(NOW(), INTERVAL $hourOffset HOUR))");
     mysqli_close($link);
 
-    header("Location: ./");
+    header("Location: ./?t=log&saved=1");
 }

@@ -12,5 +12,5 @@ if(isset($_GET['newSavedIngrSubmitted']) && $_GET['newSavedIngrSubmitted'] == "1
     mysqli_query($link, "INSERT INTO ingredients (`name`,`kcalPer100`) VALUES ('$ingrName','$ingrKcalPer100')");
     mysqli_close($link);
 
-    header("Location: ./?t=ingredients");
+    header("Location: ./?t=ingredients&saved=1");
 }

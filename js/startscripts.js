@@ -196,6 +196,20 @@ function initialChangeTab() {
     }
 }
 
+function notifyDBChange() {
+    let params = new URLSearchParams(document.location.search);
+
+    if(params.get("t") == "settings" && params.get("saved") == 1) {
+        showToastNotification("✓ Settings saved");
+    } else if(params.get("t") == "log" && params.get("saved") == 1) {
+        showToastNotification("✓ Log entry saved");
+    } else if(params.get("t") == "meals" && params.get("saved") == 1) {
+        showToastNotification("✓ Meal saved");
+    } else if(params.get("t") == "ingredients" && params.get("saved") == 1) {
+        showToastNotification("✓ Ingredient saved");
+    }
+}
+
 function showToastNotification(text) {
     clearTimeout(toastTimeout);
 

@@ -12,7 +12,7 @@ if(isset($_GET['newSavedMealSubmitted']) && $_GET['newSavedMealSubmitted'] == "1
     mysqli_query($link, "INSERT INTO meals (`name`,`kcal`) VALUES ('$mealName','$mealTotalKcal')");
     mysqli_close($link);
 
-    header("Location: ./?t=meals");
+    header("Location: ./?t=meals&saved=1");
 } elseif(isset($_GET['newSavedMealFromIngrSubmitted']) && $_GET['newSavedMealFromIngrSubmitted'] == "1") {
     $mealName = mysqli_real_escape_string($link, trim($_GET["addSavedMealFromIngrName"]));
 
@@ -26,5 +26,5 @@ if(isset($_GET['newSavedMealSubmitted']) && $_GET['newSavedMealSubmitted'] == "1
     mysqli_query($link, "INSERT INTO meals (`name`,`kcal`) VALUES ('$mealName','$mealTotalKcal')");
     mysqli_close($link);
 
-    header("Location: ./?t=meals");
+    header("Location: ./?t=meals&saved=1");
 }

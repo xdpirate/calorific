@@ -11,5 +11,5 @@ if(isset($_GET['settingsSubmitted']) && $_GET['settingsSubmitted'] == "1") {
     }
 
     mysqli_close($link);
-    header("Location: ./?t=settings");
+    header("Location: ./?t=settings&saved=1");
 }

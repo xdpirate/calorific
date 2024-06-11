@@ -45,7 +45,7 @@ $hourOffset = 0;
 for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
     $key = mysqli_result($resSettings, $i, "key");
     $value = mysqli_result($resSettings, $i, "value");
-    
+
     if($key == "calorieGoal") {
         $calorieGoal = $value;
     } elseif($key == "hourOffset") {
@@ -285,8 +285,8 @@ if(isset($_GET['all'])) {
                     </div>
                     
                     <div class="foodlist wide">
-                        <div style="width: 100%; text-align: center;"><b>🍽️ Saved meals</b></div><hr>
-                        <div style="max-height: 12em; overflow-y: auto;">
+                        <div class="savedIngrMealHeader"><b>🍽️ Saved meals</b></div><hr>
+                        <div class="savedIngrMealWrapper">
                             <table>
                                 <thead>
                                     <th>⚙️</th>
@@ -339,8 +339,8 @@ if(isset($_GET['all'])) {
                     </div>
 
                     <div class="foodlist wide">
-                        <div style="width: 100%; text-align: center;"><b>🥔 Saved ingredients</b></div><hr>
-                        <div style="max-height: 12em; overflow-y: auto;">
+                        <div class="savedIngrMealHeader"><b>🥔 Saved ingredients</b></div><hr>
+                        <div class="savedIngrMealWrapper">
                             <table>
                                 <thead>
                                     <th>⚙️</th>

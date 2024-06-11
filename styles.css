@@ -274,8 +274,14 @@ input, select, #toastNotification {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-#addMealDescription {
-    width: 100%;
+.savedIngrMealHeader {
+    width: 100%; 
+    text-align: center;
+}
+    
+.savedIngrMealWrapper {
+    max-height: 12em; 
+    overflow-y: auto;
 }
 
 @-webkit-keyframes fadein {

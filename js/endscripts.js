@@ -1,4 +1,4 @@
 registerTabs();
-registerButtons();
+registerEvents();
 initialChangeTab();
 notifyDBChange();

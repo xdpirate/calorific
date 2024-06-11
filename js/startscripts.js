@@ -33,7 +33,7 @@ function registerTabs() {
     }    
 }
 
-function registerButtons() {
+function registerEvents() {
     let addMealAddSavedMeal = function() {
         let selectedMeal = document.querySelector("select#addMealSavedMeals");
         let amount = Number(document.querySelector("select#addMealSavedMealsNum").value);

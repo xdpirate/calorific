@@ -87,6 +87,10 @@ You can update Calorific through the UI by clicking "Update" on the bottom right
 
 This can be toggled on and off at will, and will apply on the next page load. You can enable it, update, then disable it again if you'd like, but I definitely don't recommend keeping it on if you're running in an untrusted environment where other people may have access to Calorific.
 
+## Medical and nutritional disclaimer
+
+Nothing contained within this software is to be construed as professional advice; medical, nutritional or otherwise. It is merely a tool to assist the user in managing their own nutrition. Always consult with a doctor or nutritionist before significantly altering your diet.
+
 ## License
 
 Calorific is free and open source software, licensed under the GNU General Public License v3.0.

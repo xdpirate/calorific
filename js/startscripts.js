@@ -178,6 +178,15 @@ function registerButtons() {
     document.querySelector("#hourOffsetExplanationToggler").addEventListener("click", function() {
         document.querySelector("#hourOffsetExplanation").classList.toggle("hidden");
     });
+
+    document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", function(event) {
+        let rect = this.getBoundingClientRect();
+        let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+        
+        if(!isInDialog) {
+            this.close();
+        }
+    }));
 }
 
 function initialChangeTab() {

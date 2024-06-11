@@ -96,7 +96,7 @@ Nothing contained within this software is to be construed as professional advice
 Calorific is free and open source software, licensed under the GNU General Public License v3.0.
 
     Calorific -  Dead simple self-hosted calorie tracker
-    Copyright ©️ 2023 xdpirate
+    Copyright ©️ 2023-2024 xdpirate
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

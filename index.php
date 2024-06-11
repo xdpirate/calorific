@@ -43,10 +43,13 @@ $calorieGoal = 0;
 $hourOffset = 0;
 
 for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
-    if(mysqli_result($resSettings, $i, "key") == "calorieGoal") {
-        $calorieGoal = mysqli_result($resSettings, $i, "value");
-    } elseif(mysqli_result($resSettings, $i, "key") == "hourOffset") {
-        $hourOffset = mysqli_result($resSettings, $i, "value");
+    $key = mysqli_result($resSettings, $i, "key");
+    $value = mysqli_result($resSettings, $i, "value");
+    
+    if($key == "calorieGoal") {
+        $calorieGoal = $value;
+    } elseif($key == "hourOffset") {
+        $hourOffset = $value;
     }
 }
 

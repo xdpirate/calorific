@@ -236,6 +236,7 @@ function notifyDBChange() {
     }
     
     showToastNotification(`✓ ${component} ${action}!`);
+    history.replaceState({}, document.title, `?t=${params.get("t")}`);
 }
 
 function showToastNotification(text) {

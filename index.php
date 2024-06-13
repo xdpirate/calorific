@@ -252,9 +252,9 @@ if(isset($_GET['all'])) {
                                 <b>🥔 Build meal from saved ingredients</b><hr>
                                 <input type="hidden" name="newSavedMealFromIngrSubmitted" id="newSavedMealFromIngrSubmitted" value="1">
                                 
-                                <div>
-                                    <input type="text" name="addSavedMealFromIngrName" id="addSavedMealFromIngrName" placeholder="Meal name"> <input id="addSavedMealFromIngrTotalKcal" name="addSavedMealFromIngrTotalKcal" type="number" min="0" value="0"> kcal<br />
+                                <input type="text" name="addSavedMealFromIngrName" id="addSavedMealFromIngrName" placeholder="Meal name"> <input id="addSavedMealFromIngrTotalKcal" name="addSavedMealFromIngrTotalKcal" type="number" min="0" value="0"> kcal<br /><br />
 
+                                <div>
                                     <select name="addSavedMealFromIngr" id="addSavedMealFromIngr">
                                         <?php
                                             $numrows = mysqli_num_rows($resIngredients); 
@@ -279,7 +279,7 @@ if(isset($_GET['all'])) {
                                     <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
                                 </div>
 
-                                <input id="submitSavedMealFromIngrBtn" type="submit" value="Save built meal"<?php if($numrows == 0) { ?> disabled<?php }?>>
+                                <input id="submitSavedMealFromIngrBtn" type="submit" value="Save built meal"<?php if($numrows == 0) { ?> disabled<?php }?>> <input id="addSavedMealClearBtn" type="button" value="Clear">
                             </form>
                         </div>
                     </div>

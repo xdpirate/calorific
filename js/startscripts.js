@@ -77,6 +77,12 @@ function registerEvents() {
 
     document.getElementById("addSavedMealAddSavedIngredientBtn").addEventListener("click", addSavedMealAddSavedIngredient);
 
+    document.getElementById("addSavedMealClearBtn").addEventListener("click", function() {
+        document.querySelector("#addSavedMealFromIngrName").value = "";
+        document.querySelector("#addSavedMealFromIngrTotalKcal").value = 0;
+        document.querySelector("#addSavedMealAddSavedIngredientAmount").value = 0;
+    });
+
     let deleteEntry = function() {
         let src = this.getAttribute("data-src");
         let id = this.getAttribute("data-id");

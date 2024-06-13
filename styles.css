@@ -162,7 +162,7 @@ td, th {
     text-align: right;
 }
 
-input[type=submit]:not(#updateSubmitBtn, #editLogSubmitBtn) {
+input[type=submit]:not(#updateSubmitBtn, #editLogSubmitBtn, #submitSavedMealFromIngrBtn) {
     width: 100%;
     height: 3em;
     margin-top: 1em;
@@ -170,6 +170,12 @@ input[type=submit]:not(#updateSubmitBtn, #editLogSubmitBtn) {
 
 input[type=number] {
     width: 5em;
+}
+
+#submitSavedMealFromIngrBtn, #addSavedMealClearBtn {
+    height: 3em;
+    margin-top: 1em;
+    width: 49%;
 }
 
 th {

@@ -41,7 +41,8 @@ function registerEvents() {
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
         document.querySelector("#addMealDescription").value += amount + "x " + name + ", ";
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
-        showToastNotification(`✓ ${amount}x ${name} added to current meal`);
+        
+        showToastNotification(`✓ ${amount}g/ml ${name} (${kcal} kcal) added to log entry`);
     };
 
     document.getElementById("addMealAddSavedMealBtn").addEventListener("click", addMealAddSavedMeal);
@@ -55,7 +56,8 @@ function registerEvents() {
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
         document.querySelector("#addMealDescription").value += `${name} (${amount}g/ml), `;
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
-        showToastNotification(`✓ ${amount}g/ml ${name} added to current meal`);
+        
+        showToastNotification(`✓ ${amount}g/ml ${name} (${kcal} kcal) added to log entry`);
     };
 
     document.getElementById("addMealAddSavedIngredientBtn").addEventListener("click", addMealAddSavedIngredient);
@@ -69,6 +71,8 @@ function registerEvents() {
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
         document.querySelector("#addSavedMealFromIngrName").value += `${name} (${amount}g/ml), `;
         document.querySelector("#addSavedMealFromIngrTotalKcal").value = Number(document.querySelector("#addSavedMealFromIngrTotalKcal").value) + kcal;
+
+        showToastNotification(`✓ ${amount}g/ml ${name} (${kcal} kcal) added to current meal`);
     };
 
     document.getElementById("addSavedMealAddSavedIngredientBtn").addEventListener("click", addSavedMealAddSavedIngredient);
@@ -248,5 +252,5 @@ function showToastNotification(text) {
     
     toastTimeout = setTimeout(function(){ 
         toastNotification.classList.remove("show"); 
-    }, 3000);
+    }, 5000);
 }

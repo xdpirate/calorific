@@ -214,7 +214,7 @@ if(isset($_GET['all'])) {
 
                                                 print("
                                                     <option data-kcal='$kcalPer100' data-name='$name'>
-                                                        $name ($kcalPer100 kcal pr. 100g/ml)
+                                                        $name ($kcalPer100 kcal per 100g/ml)
                                                     </option>
                                                 ");
                                             }
@@ -267,7 +267,7 @@ if(isset($_GET['all'])) {
 
                                                     print("
                                                         <option data-kcal='$kcalPer100' data-name='$name'>
-                                                            $name ($kcalPer100 kcal pr. 100g/ml)
+                                                            $name ($kcalPer100 kcal per 100g/ml)
                                                         </option>
                                                     ");
                                                 }
@@ -345,7 +345,7 @@ if(isset($_GET['all'])) {
                                 <thead>
                                     <th>⚙️</th>
                                     <th>Ingredient name</th>
-                                    <th>kcal pr. 100 g/ml</th>
+                                    <th>kcal per 100 g/ml</th>
                                 </thead>
                                 <tbody>
                                     <?php

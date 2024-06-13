@@ -240,7 +240,7 @@ if(isset($_GET['all'])) {
                                 <input type="hidden" name="newSavedMealSubmitted" id="newSavedMealSubmitted" value="1">
                                 
                                 <div>
-                                    Meal name (required): <input type="text" name="addSavedMealName" id="addSavedMealName" placeholder="Meal name"></input><br />Total kcal: <input id="addSavedMealTotalKcal" name="addSavedMealTotalKcal" type="number" min="0" value="0"></input>
+                                    <input type="text" name="addSavedMealName" id="addSavedMealName" placeholder="Meal name"> <input id="addSavedMealTotalKcal" name="addSavedMealTotalKcal" type="number" min="0" value="0"> kcal
                                 </div>
 
                                 <input id="submitSavedMealBtn" type="submit" value="Save simple meal">
@@ -253,7 +253,7 @@ if(isset($_GET['all'])) {
                                 <input type="hidden" name="newSavedMealFromIngrSubmitted" id="newSavedMealFromIngrSubmitted" value="1">
                                 
                                 <div>
-                                    Meal name (required): <input type="text" name="addSavedMealFromIngrName" id="addSavedMealFromIngrName" placeholder="Meal name"></input><br />Total kcal: <input id="addSavedMealFromIngrTotalKcal" name="addSavedMealFromIngrTotalKcal" type="number" min="0" value="0"></input><br />
+                                    <input type="text" name="addSavedMealFromIngrName" id="addSavedMealFromIngrName" placeholder="Meal name"> <input id="addSavedMealFromIngrTotalKcal" name="addSavedMealFromIngrTotalKcal" type="number" min="0" value="0"> kcal<br />
 
                                     <select name="addSavedMealFromIngr" id="addSavedMealFromIngr">
                                         <?php
@@ -330,7 +330,7 @@ if(isset($_GET['all'])) {
                                 <input type="hidden" name="newSavedIngrSubmitted" id="newSavedIngrSubmitted" value="1">
                                 
                                 <div>
-                                    Ingredient name (required): <input type="text" name="addSavedIngrName" id="addSavedIngrName" placeholder="Ingredient name"></input><br />Kcal pr. 100g or ml: <input id="addSavedIngrTotalKcal" name="addSavedIngrTotalKcal" type="number" min="0" value="0"></input>
+                                    <input type="text" name="addSavedIngrName" id="addSavedIngrName" placeholder="Ingredient name"> <input id="addSavedIngrTotalKcal" name="addSavedIngrTotalKcal" type="number" min="0" value="0"> kcal per 100g/ml
                                 </div>
 
                                 <input id="submitSavedIngrBtn" type="submit" value="Save ingredient">
@@ -384,14 +384,14 @@ if(isset($_GET['all'])) {
                                 <div class="optionExplanation hidden" id="calorieGoalExplanation">
                                     Enabling a daily calorie goal will show how much under/over you are in relation to your goal each day, next to the daily calorie total. Being <i>under</i> your goal will show the difference in <span class="calorieGoalNeutral">orange</span>. Being <i>over</i> your goal will show the difference in <span class="calorieGoalNegative">red</span>. Being within 10% of your goal in either direction will show the difference in <span class="calorieGoalPositive">green</span>. Set to 0 to disable this function.
                                 </div>
-                                Daily calorie goal: <input type="number" name="calorieGoalNum" id="calorieGoalNum" min="0" value="<?php print($calorieGoal); ?>">
+                                <input type="number" name="calorieGoalNum" id="calorieGoalNum" min="0" value="<?php print($calorieGoal); ?>">
                             </div>
                             <div class="minibox">
                                 <b>🕔 Hour offset</b> <sup><span id="hourOffsetExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
                                 <div class="optionExplanation hidden" id="hourOffsetExplanation">
                                     If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24.
                                 </div>
-                                Hour offset: <input type="number" name="hourOffsetNum" id="hourOffsetNum" min="-24" max="24" value="<?php print($hourOffset); ?>">
+                                <input type="number" name="hourOffsetNum" id="hourOffsetNum" min="-24" max="24" value="<?php print($hourOffset); ?>">
                             </div>
                         </div>
                         <input type="hidden" name="settingsSubmitted" id="settingsSubmitted" value="1">

@@ -160,6 +160,8 @@ function registerEvents() {
         document.querySelector("input#addMealTotalKcal").value = kcal;
 
         document.querySelector("div#logMealTab").scrollIntoView();
+
+        showToastNotification("✓ Previous meal copied to current log entry");
     };
 
     let cloneButtons = document.querySelectorAll("span.cloneBtn");

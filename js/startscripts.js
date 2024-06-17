@@ -100,10 +100,9 @@ function registerEvents() {
         }
     };
 
-    let deleteButtons = document.querySelectorAll("span.delBtn");
-    for(let i = 0; i < deleteButtons.length; i++) {
-        deleteButtons[i].addEventListener("click", deleteEntry);
-    }
+    document.querySelectorAll("span.delBtn").forEach(deleteButton =>
+        deleteButton.addEventListener("click", deleteEntry)
+    );
 
     let editEntry = function() {
         let src = this.getAttribute("data-src");
@@ -145,10 +144,9 @@ function registerEvents() {
         }
     };
 
-    let editButtons = document.querySelectorAll("span.editBtn");
-    for(let i = 0; i < editButtons.length; i++) {
-        editButtons[i].addEventListener("click", editEntry);
-    }
+    document.querySelectorAll("span.editBtn").forEach(editButton =>
+        editButton.addEventListener("click", editEntry)
+    );
 
     let cloneEntry = function() {
         let name = this.getAttribute("data-name");
@@ -164,10 +162,9 @@ function registerEvents() {
         showToastNotification("✓ Previous meal copied to current log entry");
     };
 
-    let cloneButtons = document.querySelectorAll("span.cloneBtn");
-    for(let i = 0; i < cloneButtons.length; i++) {
-        cloneButtons[i].addEventListener("click", cloneEntry);
-    }
+    document.querySelectorAll("span.cloneBtn").forEach(cloneButton =>
+        cloneButton.addEventListener("click", cloneEntry)
+    );
 
     document.querySelector("#clearLogFieldsBtn").addEventListener("click", function() {
         document.querySelector("#addMealDescription").value = "";

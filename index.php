@@ -430,7 +430,7 @@ if(isset($_GET['all'])) {
                                             <summary>⚙️</summary>
                                                 <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
                                                 <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
-                                                <span class='cloneBtn' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                                <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
                                         <td>$time</td>
@@ -499,7 +499,7 @@ if(isset($_GET['all'])) {
                                             <summary>⚙️</summary>
                                                 <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
                                                 <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
-                                                <span class='cloneBtn' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                                <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
                                         <td>$time</td>
@@ -578,7 +578,7 @@ if(isset($_GET['all'])) {
                                             <summary>⚙️</summary>
                                                 <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
                                                 <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
-                                                <span class='cloneBtn' data-id='$id' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                                <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                             </details>
                                         </td>
                                         <td>$date $time</td>

@@ -399,7 +399,7 @@ if(isset($_GET['all'])) {
                             <div class="minibox">
                                 <b>🕔 Hour offset</b> <sup><span id="hourOffsetExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
                                 <div class="optionExplanation hidden" id="hourOffsetExplanation">
-                                    If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24.
+                                    If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24. Note that already existing database entries will not be updated to the new offset.
                                 </div>
                                 <input type="number" name="hourOffsetNum" id="hourOffsetNum" min="-24" max="24" value="<?php print($hourOffset); ?>">
                             </div>

@@ -157,6 +157,16 @@ if(isset($_GET['all'])) {
                             </span>
                         </div>
 
+                        <div id="logTimeArea">
+                            Consumed:
+                            <input type="radio" name="logWhen" id="logNow" value="now" checked><label for="logNow">Now</label>
+                            
+                            <input type="radio" name="logWhen" id="logNotNow" value="custom"><label for="logNotNow">Specify:</label>
+                            
+                            <input type="date" name="logCustomDate" id="logCustomDate" disabled>
+                            <input type="time" name="logCustomTime" id="logCustomTime" disabled>
+                        </div>
+
 
                         <div class="miniboxwrapper">
                             <div class="minibox">

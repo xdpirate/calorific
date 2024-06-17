@@ -34,6 +34,9 @@ function registerTabs() {
 }
 
 function registerEvents() {
+    let now = new Date();
+    now.setHours(now.getHours()+hourOffset);
+
     let addMealAddSavedMeal = function() {
         let selectedMeal = document.querySelector("select#addMealSavedMeals");
         let amount = Number(document.querySelector("select#addMealSavedMealsNum").value);
@@ -172,13 +175,19 @@ function registerEvents() {
         showToastNotification("✓ Meal cleared");
     });
 
-    document.querySelector("#editLogTimestampNow").addEventListener("click", function() {
+    let setDateTimeElemToNow = function(dateElem, timeElem) {
         let now = new Date();
         now.setHours(now.getHours()+hourOffset);
         
-        document.querySelector("#editLogDate").value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
-        document.querySelector("#editLogTime").value = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
-    });
+        document.querySelector(`#${dateElem}`).value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+        document.querySelector(`#${timeElem}`).value = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+    };
+
+    document.querySelector("#editLogTimestampNow").addEventListener("click", function() {
+        setDateTimeElemToNow("editLogDate", "editLogTime"); }
+    );
+
+    setDateTimeElemToNow("logCustomDate", "logCustomTime");
 
     document.querySelector("#calorieGoalExplanationToggler").addEventListener("click", function() {
         document.querySelector("#calorieGoalExplanation").classList.toggle("hidden");
@@ -199,6 +208,26 @@ function registerEvents() {
             this.close();
         }
     }));
+
+    document.querySelector("#logNow").addEventListener("change", function() {
+        if(this.checked) {
+            document.querySelector("#logCustomDate").disabled = true;
+            document.querySelector("#logCustomTime").disabled = true;
+        } else {
+            document.querySelector("#logCustomDate").disabled = false;
+            document.querySelector("#logCustomTime").disabled = false;
+        }
+    });
+
+    document.querySelector("#logNotNow").addEventListener("change", function() {
+        if(this.checked) {
+            document.querySelector("#logCustomDate").disabled = false;
+            document.querySelector("#logCustomTime").disabled = false;
+        } else {
+            document.querySelector("#logCustomDate").disabled = true;
+            document.querySelector("#logCustomTime").disabled = true;
+        }
+    });
 }
 
 function initialChangeTab() {

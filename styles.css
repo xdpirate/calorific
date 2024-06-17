@@ -278,6 +278,10 @@ input, select, #toastNotification {
     width: 100%;
 }
 
+#logTimeArea {
+    margin-top: 0.5em;
+}
+
 #toastNotification.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;

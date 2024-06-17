@@ -80,7 +80,7 @@ if(isset($_GET['all'])) {
         <title>Calorific</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="./styles.css" rel="stylesheet" />
+        <link href="./styles.css?<?php print time(); ?>" rel="stylesheet" />
         <link href="./favicon.png" rel="icon" type="image/png" />
         <script src="./js/startscripts.js?<?php print time(); ?>"></script>
     </head>

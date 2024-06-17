@@ -34,9 +34,6 @@ function registerTabs() {
 }
 
 function registerEvents() {
-    let now = new Date();
-    now.setHours(now.getHours()+hourOffset);
-
     let addMealAddSavedMeal = function() {
         let selectedMeal = document.querySelector("select#addMealSavedMeals");
         let amount = Number(document.querySelector("select#addMealSavedMealsNum").value);

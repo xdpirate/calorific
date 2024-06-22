@@ -274,22 +274,6 @@ function filterSelects(filterBox, dropDown) {
                 }
             }
         });
-
-        for(let i = 0; i < options.length; i++) {
-            options[i].disabled = !options[i].getAttribute("data-name").toLowerCase().includes(filterBox.value.toLowerCase());
-            
-            if(options[i].disabled) {
-                options[i].classList.add("hidden");
-            } else {
-                // change selected item to first found so we don't get zombie elements sticking around
-                if(firstHit) {
-                    dropDown.value = options[i].innerText.trim();
-                    firstHit = false;
-                } else {
-                    options[i].classList.remove("hidden");
-                }
-            }
-        } 
     }
 }
 

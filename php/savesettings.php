@@ -10,6 +10,14 @@ if(isset($_GET['settingsSubmitted']) && $_GET['settingsSubmitted'] == "1") {
         mysqli_query($link, "REPLACE INTO settings VALUES ('hourOffset','$hourOffsetNum')");
     }
 
+    $filterBoxState = 0;
+    
+    if(isset($_GET['filterBoxState']) && trim($_GET["filterBoxState"]) == "on") {
+        $filterBoxState = 1;
+    }
+
+    mysqli_query($link, "REPLACE INTO settings VALUES ('filterBoxState','$filterBoxState')");
+
     mysqli_close($link);
     header("Location: ./?t=settings&saved=1");
 }

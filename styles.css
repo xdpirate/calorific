@@ -76,6 +76,21 @@ summary {
     user-select: none;
 }
 
+span.clearSearch {
+    display: inline-block;
+    position: relative;
+    font-size: 0.8em;
+    left: -1.5em;
+    width: 0;
+    user-select: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type=search] {
+    padding-right: 1.5em;
+}
+
 div.wide {
     width: 100%;
     line-height: 1em;
@@ -280,6 +295,14 @@ input, select, #toastNotification {
 
 #logTimeArea {
     margin-top: 0.5em;
+}
+
+.filterBox {
+    width: 90%;
+}
+
+.filterBoxWrapper {
+    margin-bottom: 1em;
 }
 
 #toastNotification.show {

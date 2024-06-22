@@ -193,6 +193,10 @@ function registerEvents() {
     document.querySelector("#hourOffsetExplanationToggler").addEventListener("click", function() {
         document.querySelector("#hourOffsetExplanation").classList.toggle("hidden");
     });
+    
+    document.querySelector("#filterBoxExplanationToggler").addEventListener("click", function() {
+        document.querySelector("#filterBoxExplanation").classList.toggle("hidden");
+    });
 
     document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", function(event) {
         let rect = this.getBoundingClientRect();
@@ -225,6 +229,68 @@ function registerEvents() {
             document.querySelector("#logCustomTime").disabled = true;
         }
     });
+
+    document.querySelector("#savedMealsFilterBox").addEventListener("input", function() { 
+        filterSelects("savedMealsFilterBox", "addMealSavedMeals"); 
+    });
+
+    document.querySelector("#savedIngredientsFilterBox").addEventListener("input", function() { 
+        filterSelects("savedIngredientsFilterBox", "addMealSavedIngredients"); 
+    });
+    
+    document.querySelector("#mealBuilderIngredientsFilterBox").addEventListener("input", function() { 
+        filterSelects("mealBuilderIngredientsFilterBox", "addSavedMealFromIngr"); 
+    });
+
+}
+
+function filterSelects(filterBox, dropDown) {
+    filterBox = document.querySelector(`#${filterBox}`);
+    dropDown = document.querySelector(`#${dropDown}`);
+    let options = dropDown.querySelectorAll(`option`);
+    let firstHit = true;
+
+    if(filterBox.value == "") {
+        options.forEach(option => {
+            option.disabled = false;
+            option.classList.remove("hidden");
+        });
+        
+        dropDown.selectedIndex = 0;
+    } else {
+        options.forEach(option => {
+            option.disabled = !option.getAttribute("data-name").toLowerCase().trim().includes(filterBox.value.toLowerCase());
+            
+            if(option.disabled) {
+                option.classList.add("hidden");
+            } else {
+                // change selected item to first found so we don't get zombie elements sticking around,
+                // plus it's convenient to auto-select when searching
+                if(firstHit) {
+                    dropDown.value = option.innerText.trim();
+                    firstHit = false;
+                } else {
+                    option.classList.remove("hidden");
+                }
+            }
+        });
+
+        for(let i = 0; i < options.length; i++) {
+            options[i].disabled = !options[i].getAttribute("data-name").toLowerCase().includes(filterBox.value.toLowerCase());
+            
+            if(options[i].disabled) {
+                options[i].classList.add("hidden");
+            } else {
+                // change selected item to first found so we don't get zombie elements sticking around
+                if(firstHit) {
+                    dropDown.value = options[i].innerText.trim();
+                    firstHit = false;
+                } else {
+                    options[i].classList.remove("hidden");
+                }
+            }
+        } 
+    }
 }
 
 function initialChangeTab() {

@@ -39,8 +39,11 @@ if(!$link) {
 require("./php/dbsetup.php");
 
 $resSettings = mysqli_query($link, "SELECT * FROM `settings`;");
+
+// Default settings values, will be overwritten by values found in db
 $calorieGoal = 0;
 $hourOffset = 0;
+$filterBoxState = 1;
 
 for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
     $key = mysqli_result($resSettings, $i, "key");
@@ -50,6 +53,8 @@ for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
         $calorieGoal = $value;
     } elseif($key == "hourOffset") {
         $hourOffset = $value;
+    } elseif($key == "filterBoxState") {
+        $filterBoxState = $value;
     }
 }
 
@@ -171,7 +176,7 @@ if(isset($_GET['all'])) {
                         <div class="miniboxwrapper">
                             <div class="minibox">
                                 <b>🍲 Add a saved meal to this log entry</b><hr>
-
+                                
                                 <select name="addMealSavedMealsNum" id="addMealSavedMealsNum">
                                     <option value="1">1x</option>
                                     <option value="2">2x</option>
@@ -188,23 +193,31 @@ if(isset($_GET['all'])) {
                                 <select name="addMealSavedMeals" id="addMealSavedMeals">
                                     <?php
                                         $numrows = mysqli_num_rows($resMeals);
+                                        $optionElems = "";
 
                                         if($numrows == 0) {
-                                            print("<option disabled>No saved meals</option>");
+                                            $optionElems .= "<option disabled>No saved meals</option>";
                                         } else {
                                             for($i = 0; $i < $numrows; $i++) {
                                                 $name = str_replace("'", "&apos;", mysqli_result($resMeals,$i,"name"));
                                                 $kcal = mysqli_result($resMeals,$i,"kcal");
                 
-                                                print("
+                                                $optionElems .= "
                                                     <option data-kcal='$kcal' data-name='$name'>
                                                         $name ($kcal kcal)
                                                     </option>
-                                                ");
+                                                ";
                                             }
+
                                         }
+
+                                        print($optionElems);
                                     ?>
-                                </select>
+                                </select><br />
+
+                                <div class="filterBoxWrapper <?php if($filterBoxState == 0) { print("hidden"); } ?>">
+                                    <input type="search" class="filterBox" id="savedMealsFilterBox" placeholder="🔎 Filter the saved meal list" autocomplete="off"> <span class="clearSearch" title="Clear filter" onclick="this.previousElementSibling.value = ''; filterSelects('savedMealsFilterBox', 'addMealSavedMeals');">x</span>
+                                </div>
 
                                 <input id="addMealAddSavedMealBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
                             </div>
@@ -231,7 +244,11 @@ if(isset($_GET['all'])) {
                                         }
                                         
                                     ?>
-                                </select> <br />
+                                </select><br />
+
+                                <div class="filterBoxWrapper  <?php if($filterBoxState == 0) { print("hidden"); } ?>">
+                                    <input type="search" class="filterBox" id="savedIngredientsFilterBox" placeholder="🔎 Filter the saved ingredients list" autocomplete="off"> <span class="clearSearch" title="Clear filter" onclick="this.previousElementSibling.value = ''; filterSelects('savedIngredientsFilterBox', 'addMealSavedIngredients');">x</span>
+                                </div>
 
                                 Amount: <input id="addMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
                                 <input id="addMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
@@ -284,6 +301,10 @@ if(isset($_GET['all'])) {
                                             }
                                         ?>
                                     </select> <br />
+
+                                    <div class="filterBoxWrapper  <?php if($filterBoxState == 0) { print("hidden"); } ?>">
+                                        <input type="search" class="filterBox" id="mealBuilderIngredientsFilterBox" placeholder="🔎 Filter the saved ingredients list" autocomplete="off"> <span class="clearSearch" title="Clear filter" onclick="this.previousElementSibling.value = ''; filterSelects('mealBuilderIngredientsFilterBox', 'addSavedMealFromIngr');">x</span>
+                                    </div>
 
                                     Amount: <input id="addSavedMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
                                     <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
@@ -402,6 +423,13 @@ if(isset($_GET['all'])) {
                                     If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24. Note that already existing database entries will not be updated to the new offset.
                                 </div>
                                 <input type="number" name="hourOffsetNum" id="hourOffsetNum" min="-24" max="24" value="<?php print($hourOffset); ?>">
+                            </div>
+                            <div class="minibox">
+                                <b>🔎 Filter boxes</b> <sup><span id="filterBoxExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
+                                <div class="optionExplanation hidden" id="filterBoxExplanation">
+                                    Enable or disable the filter boxes shown under each drop down list. This makes it easier to navigate a large list of saved meals or ingredients, but may be superfluous if you keep a tidy list of elements in each category.
+                                </div>
+                                <input type="checkbox" name="filterBoxState" id="filterBoxState" <?php if($filterBoxState == 1) { print("checked"); } ?>><label for="filterBoxState">Enabled</label>
                             </div>
                         </div>
                         <input type="hidden" name="settingsSubmitted" id="settingsSubmitted" value="1">

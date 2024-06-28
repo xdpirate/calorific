@@ -42,7 +42,7 @@ function registerEvents() {
         document.querySelector("#addMealDescription").value += amount + "x " + name + ", ";
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
         
-        showToastNotification(`✓ ${amount}g/ml ${name} (${kcal} kcal) added to log entry`);
+        showToastNotification(`✓ ${amount}x ${name} (${kcal} kcal) added to log entry`);
     };
 
     document.getElementById("addMealAddSavedMealBtn").addEventListener("click", addMealAddSavedMeal);

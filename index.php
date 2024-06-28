@@ -580,55 +580,134 @@ if(isset($_GET['all'])) {
                 if(isset($_GET['all'])) {
             ?>
             <h2 id="historyHeader">All meals <sup><small><small><a href="./">[show recent]</a></small></small></sup></h2>
-            <?php        
-                } else {
-            ?>
-            <h2 id="historyHeader">Previous <sup><small><small><a href="./?all">[show all]</a></small></small></sup></h2>
-            <?php
-                }
-            ?>
-
+           
             <div id="mealhistory">
-            <table>
-                    <thead>
-                        <th>⚙️</th>
-                        <th>🕔</th>
-                        <th>Description</th>
-                        <th>kcal consumed</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $numrows = mysqli_num_rows($resHistory); 
-                            $dailyTotal = 0;
-                            for($i = 0; $i < $numrows; $i++) {
-                                $id = mysqli_result($resHistory,$i,"ID");
-                                $timestamp = mysqli_result($resHistory,$i,"time");
-                                $date = date("Y-m-d", strtotime($timestamp));
-                                $time = date("H:i", strtotime($timestamp));
-                                $description = mysqli_result($resHistory,$i,"description");
-                                $kcal = mysqli_result($resHistory,$i,"kcal");
-                                $dailyTotal += $kcal;
+                <?php
+                    // Read DB contents into arrays
+                    $idEntries = [];
+                    $dateEntries = [];
+                    $timeEntries = [];
+                    $descriptionEntries = [];
+                    $kcalEntries = [];
+                    
+                    $numrows = mysqli_num_rows($resHistory);
+                    for($i = 0; $i < $numrows; $i++) {
+                        $idEntries[$i] = mysqli_result($resHistory,$i,"ID");
+                        $timestamp = mysqli_result($resHistory,$i,"time");
+                        $dateEntries[$i] = date("Y-m-d", strtotime($timestamp));
+                        $timeEntries[$i] = date("H:i", strtotime($timestamp));
+                        $descriptionEntries[$i] = mysqli_result($resHistory,$i,"description");
+                        $kcalEntries[$i] = mysqli_result($resHistory,$i,"kcal");
+                    }
 
+                    $uniqueDates = array_unique($dateEntries);
+
+                    for($i = 0; $i < count($uniqueDates); $i++) {
+                        $dailyTotal = 0;
+                        print("<h2>".array_values($uniqueDates)[$i]."</h2>\n");
+                        ?>
+                        <table>
+                            <thead>
+                                <th>⚙️</th>
+                                <th>🕔</th>
+                                <th>Description</th>
+                                <th>kcal consumed</th>
+                            </thead>
+                            <tbody>
+                        <?php
+                        for($j = 0; $j < count($dateEntries); $j++) {
+                            if(array_values($uniqueDates)[$i] == array_values($dateEntries)[$j]) {
+                                $dailyTotal += $kcalEntries[$j];
                                 print("
                                     <tr>
                                         <td>
                                             <details>
                                             <summary>⚙️</summary>
-                                                <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
-                                                <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
-                                                <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                                <span class='delBtn' data-src='log' data-id='$idEntries[$j]' data-name='$descriptionEntries[$j]' title='Delete'>❌</span>
+                                                <span class='editBtn' data-src='log' data-id='$idEntries[$j]' data-name='$descriptionEntries[$j]' data-kcal='$kcalEntries[$j]' data-date='$dateEntries[$j]' data-time='$timeEntries[$j]' title='Edit'>✏️</span>
+                                                <span class='cloneBtn' data-name='$descriptionEntries[$j]' data-kcal='$kcalEntries[$j]' title='Log again'>📑</span>
                                             </details>
                                         </td>
-                                        <td>$date $time</td>
-                                        <td>$description</td>
-                                        <td>$kcal</td>
+                                        <td>$timeEntries[$j]</td>
+                                        <td>$descriptionEntries[$j]</td>
+                                        <td>$kcalEntries[$j]</td>
                                     </tr>
                                 ");
+                            } // Closing inner if
+                        } // Closing inner for loop (for every date)
+
+                        $calorieGoalInfo = "";
+                        if($calorieGoal > 0) {
+                            $goalRangeMin = round($calorieGoal * 0.9);
+                            $goalRangeMax = round($calorieGoal * 1.1);
+
+                            $difference = $dailyTotal - $calorieGoal;
+                            if($difference > -1) {
+                                $difference = "+" . $difference;
                             }
-                        ?>
-                    </tbody>
-                </table>
+
+                            if($dailyTotal <= $goalRangeMin) {
+                                $calorieGoalInfo = " (<span class='calorieGoalNeutral' title='Not reached the calorie goal'>$difference</span>)";
+                            } elseif($dailyTotal > $goalRangeMin && $dailyTotal < $goalRangeMax) {
+                                $calorieGoalInfo = " (<span class='calorieGoalPositive' title='Within 10% of the calorie goal'>$difference</span>)";
+                            } elseif($dailyTotal >= $goalRangeMax) {
+                                $calorieGoalInfo = " (<span class='calorieGoalNegative' title='Over the calorie goal'>$difference</span>)";
+                            }
+                        }
+
+                        print("
+                            <tr>
+                                <td colspan='4' class='tableFooter'><b>Total:</b> $dailyTotal$calorieGoalInfo</td>
+                            </tr>
+                        ");
+                        print("</tbody>\n</table>");
+                    } // Closing outer for loop (for unique dates)
+                ?>
             </div>
+            <?php        
+                } else {
+            ?>
+            <h2 id="historyHeader">Recent <sup><small><small><a href="./?all#historyHeader">[show all]</a></small></small></sup></h2>
+            <table>
+                <thead>
+                    <th>⚙️</th>
+                    <th>🕔</th>
+                    <th>Description</th>
+                    <th>kcal consumed</th>
+                </thead>
+                <tbody>
+                <?php
+                    $numrows = mysqli_num_rows($resHistory);
+                    for($i = 0; $i < $numrows; $i++) {
+                        $id = mysqli_result($resHistory,$i,"ID");
+                        $timestamp = mysqli_result($resHistory,$i,"time");
+                        $date = date("Y-m-d", strtotime($timestamp));
+                        $time = date("H:i", strtotime($timestamp));
+                        $description = mysqli_result($resHistory,$i,"description");
+                        $kcal = mysqli_result($resHistory,$i,"kcal");
+
+                        print("
+                            <tr>
+                                <td>
+                                    <details>
+                                    <summary>⚙️</summary>
+                                        <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
+                                        <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
+                                        <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                    </details>
+                                </td>
+                                <td>$time</td>
+                                <td>$description</td>
+                                <td>$kcal</td>
+                            </tr>
+                        ");
+                    }
+                ?>
+                </tbody>
+            </table>
+            <?php
+                }
+            ?>
         </div><?php } else { ?>
 
         <div id="updateWrapper">

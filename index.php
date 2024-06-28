@@ -48,7 +48,7 @@ $filterBoxState = 1;
 for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
     $key = mysqli_result($resSettings, $i, "key");
     $value = mysqli_result($resSettings, $i, "value");
-
+    
     if($key == "calorieGoal") {
         $calorieGoal = $value;
     } elseif($key == "hourOffset") {
@@ -58,6 +58,7 @@ for($i = 0; $i < mysqli_num_rows($resSettings); $i++) {
     }
 }
 
+require("./php/dbclean.php");
 require("./php/addmeal.php");
 require("./php/addsavedmeal.php");
 require("./php/addsavedingredient.php");
@@ -408,6 +409,19 @@ if(isset($_GET['all'])) {
                 </div>
 
                 <div id="settingsDiv" class="contentDiv hidden">
+                    <form method="GET" action="." id="logCleanupForm">
+                        <div class="miniboxwrapper">
+                            <div class="minibox">
+                                <b>📃 Log cleanup</b> <sup><span id="logCleanupExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
+                                <div class="optionExplanation hidden" id="logCleanupExplanation">
+                                    Use this setting if you want to clean up your database and remove old log entries. Saved meals and saved ingredients are <b>not</b> affected by this, only your meal log. Valid values are 0-12 months. A value of zero (0) will clear <i>all</i> historical data from the meal log.
+                                </div>
+                                Delete log entries older than <input type="number" name="logCleanupNum" id="logCleanupNum" min="0" max="12" value="3"> months<br />
+                                <input type="submit" value="Delete log entries" id="logCleanupSubmitBtn" name="logCleanupSubmitBtn">
+                            </div>
+                        </div>
+                    </form>
+
                     <form method="GET" action=".">
                         <div class="miniboxwrapper">
                             <div class="minibox">
@@ -696,7 +710,7 @@ if(isset($_GET['all'])) {
                                         <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
                                     </details>
                                 </td>
-                                <td>$time</td>
+                                <td>$date $time</td>
                                 <td>$description</td>
                                 <td>$kcal</td>
                             </tr>

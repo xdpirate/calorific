@@ -197,6 +197,16 @@ function registerEvents() {
     document.querySelector("#filterBoxExplanationToggler").addEventListener("click", function() {
         document.querySelector("#filterBoxExplanation").classList.toggle("hidden");
     });
+    
+    document.querySelector("#logCleanupExplanationToggler").addEventListener("click", function() {
+        document.querySelector("#logCleanupExplanation").classList.toggle("hidden");
+    });
+    
+    document.querySelector("#logCleanupForm").addEventListener("submit",  function(event) {
+        if(!confirm("Are you sure you want to clean the selected log entries? This cannot be undone.")) {
+            event.preventDefault();
+        }
+    });
 
     document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", function(event) {
         let rect = this.getBoundingClientRect();
@@ -316,6 +326,9 @@ function notifyDBChange() {
         action = "edited";
     } else if(params.get("deleted") == 1) {
         action = "deleted";
+    } else if(params.get("dbcleaned") == 1) {
+        component = "Log";
+        action = "cleaned";
     } else {
         return;
     }

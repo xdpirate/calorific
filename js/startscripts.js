@@ -75,6 +75,7 @@ function registerEvents() {
         document.querySelector("#addSavedMealFromIngrName").value += `${name} (${amount}g/ml), `;
         document.querySelector("#addSavedMealFromIngrTotalKcal").value = Number(document.querySelector("#addSavedMealFromIngrTotalKcal").value) + kcal;
 
+        previewIngredientKcalVal(false);
         showToastNotification(`✓ ${amount}g/ml ${name} (${kcal} kcal) added to current meal`);
     };
 
@@ -84,6 +85,7 @@ function registerEvents() {
         document.querySelector("#addSavedMealFromIngrName").value = "";
         document.querySelector("#addSavedMealFromIngrTotalKcal").value = 0;
         document.querySelector("#addSavedMealAddSavedIngredientAmount").value = 0;
+        previewIngredientKcalVal(false);
     });
 
     let deleteEntry = function() {

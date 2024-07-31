@@ -164,6 +164,9 @@ function registerEvents() {
 
         document.querySelector("div#logMealTab").scrollIntoView();
 
+        previewIngredientKcalVal();
+        previewMealKcalVal();
+        
         showToastNotification("✓ Previous meal copied to current log entry");
     };
 

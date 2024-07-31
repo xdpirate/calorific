@@ -318,7 +318,7 @@ function previewIngredientKcalVal(isLog = true) {
     let mealKcalCounter = document.querySelector(isLog ? "#addMealTotalKcal" : "#addSavedMealFromIngrTotalKcal");
 
     let kcal = Math.ceil((kcalPerHundred / 100) * amount);
-    runningTotal = kcal + Number(mealKcalCounter.value);
+    let runningTotal = kcal + Number(mealKcalCounter.value);
 
     mealPreviewer.innerHTML = `(Adds <b>${kcal}</b> kcal, making the ${isLog ? "log entry" : "meal"} total <b>${runningTotal}</b> kcal)`;
 }
@@ -330,7 +330,7 @@ function previewMealKcalVal() {
     let kcal = Number(selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-kcal"));
     kcal = Math.ceil(kcal * amount);
 
-    runningTotal = kcal + Number(document.querySelector("#addMealTotalKcal").value);
+    let runningTotal = kcal + Number(document.querySelector("#addMealTotalKcal").value);
 
     mealPreviewer.innerHTML = `(Adds <b>${kcal}</b> kcal, making the log entry total <b>${runningTotal}</b> kcal)`;
 }

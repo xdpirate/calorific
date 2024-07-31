@@ -125,6 +125,10 @@ div.tab {
     border-top-right-radius: 0.2em;
 }
 
+.kcalPreviewer {
+    font-size: 0.7em;
+}
+
 span.delBtn, span.closeBtn, span.editBtn, span.cloneBtn, span.explanationToggler {
     cursor: pointer;
 }

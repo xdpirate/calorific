@@ -57,6 +57,9 @@ function registerEvents() {
         document.querySelector("#addMealDescription").value += `${name} (${amount}g/ml), `;
         document.querySelector("#addMealTotalKcal").value = Number(document.querySelector("#addMealTotalKcal").value) + kcal;
         
+        previewMealKcalVal();
+        previewIngredientKcalVal();
+
         showToastNotification(`✓ ${amount}g/ml ${name} (${kcal} kcal) added to log entry`);
     };
 
@@ -169,7 +172,55 @@ function registerEvents() {
     document.querySelector("#clearLogFieldsBtn").addEventListener("click", function() {
         document.querySelector("#addMealDescription").value = "";
         document.querySelector("#addMealTotalKcal").value = 0;
+        previewMealKcalVal();
+        previewIngredientKcalVal();
         showToastNotification("✓ Meal cleared");
+    });
+
+    document.querySelector("#addMealAddSavedIngredientAmount").addEventListener("change", function() {
+        previewIngredientKcalVal();
+    });
+    
+    document.querySelector("#addMealAddSavedIngredientAmount").addEventListener("input", function() {
+        previewIngredientKcalVal();
+    });
+
+    document.querySelector("#addMealSavedIngredients").addEventListener("change", function() {
+        previewIngredientKcalVal();
+    });
+
+    document.querySelector("#addSavedMealAddSavedIngredientAmount").addEventListener("change", function() {
+        previewIngredientKcalVal(false);
+    });
+    
+    document.querySelector("#addSavedMealAddSavedIngredientAmount").addEventListener("input", function() {
+        previewIngredientKcalVal(false);
+    });
+
+    document.querySelector("#addSavedMealFromIngr").addEventListener("change", function() {
+        previewIngredientKcalVal(false);
+    });
+
+    document.querySelector("#addMealTotalKcal").addEventListener("change", function() {
+        previewMealKcalVal();
+        previewIngredientKcalVal();
+    });
+    
+    document.querySelector("#addSavedMealFromIngrTotalKcal").addEventListener("change", function() {
+        previewIngredientKcalVal(false);
+    });
+    
+    document.querySelector("#addMealSavedMealsNum").addEventListener("change", function() {
+        previewMealKcalVal();
+    });
+    
+    document.querySelector("#addMealSavedMeals").addEventListener("change", function() {
+        previewMealKcalVal();
+    });
+    
+    document.querySelector("#addMealAddSavedMealBtn").addEventListener("click", function() {
+        previewMealKcalVal();
+        previewIngredientKcalVal();
     });
 
     let setDateTimeElemToNow = function(dateElem, timeElem) {
@@ -241,17 +292,45 @@ function registerEvents() {
     });
 
     document.querySelector("#savedMealsFilterBox").addEventListener("input", function() { 
-        filterSelects("savedMealsFilterBox", "addMealSavedMeals"); 
+        filterSelects("savedMealsFilterBox", "addMealSavedMeals");
+        previewMealKcalVal();
     });
 
     document.querySelector("#savedIngredientsFilterBox").addEventListener("input", function() { 
-        filterSelects("savedIngredientsFilterBox", "addMealSavedIngredients"); 
+        filterSelects("savedIngredientsFilterBox", "addMealSavedIngredients");
+        previewIngredientKcalVal();
     });
     
     document.querySelector("#mealBuilderIngredientsFilterBox").addEventListener("input", function() { 
-        filterSelects("mealBuilderIngredientsFilterBox", "addSavedMealFromIngr"); 
+        filterSelects("mealBuilderIngredientsFilterBox", "addSavedMealFromIngr");
+        previewIngredientKcalVal(false);
     });
 
+}
+
+function previewIngredientKcalVal(isLog = true) {
+    let selectedIngredient = document.querySelector(isLog ? "#addMealSavedIngredients" : "#addSavedMealFromIngr");
+    let amount = Number(document.querySelector(isLog ? "#addMealAddSavedIngredientAmount" : "#addSavedMealAddSavedIngredientAmount").value);
+    let mealPreviewer = document.querySelector(isLog ? "#addIngrToMealKcalPreview" : "#addIngrToSavedMealKcalPreview");        
+    let kcalPerHundred = Number(selectedIngredient.options[selectedIngredient.selectedIndex].getAttribute("data-kcal"));
+    let mealKcalCounter = document.querySelector(isLog ? "#addMealTotalKcal" : "#addSavedMealFromIngrTotalKcal");
+
+    let kcal = Math.ceil((kcalPerHundred / 100) * amount);
+    runningTotal = kcal + Number(mealKcalCounter.value);
+
+    mealPreviewer.innerHTML = `(Adds <b>${kcal}</b> kcal, making the ${isLog ? "log entry" : "meal"} total <b>${runningTotal}</b> kcal)`;
+}
+
+function previewMealKcalVal() {
+    let selectedMeal = document.querySelector("#addMealSavedMeals");
+    let amount = Number(document.querySelector("#addMealSavedMealsNum").value);
+    let mealPreviewer = document.querySelector("#addMealKcalPreview");        
+    let kcal = Number(selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-kcal"));
+    kcal = Math.ceil(kcal * amount);
+
+    runningTotal = kcal + Number(document.querySelector("#addMealTotalKcal").value);
+
+    mealPreviewer.innerHTML = `(Adds <b>${kcal}</b> kcal, making the log entry total <b>${runningTotal}</b> kcal)`;
 }
 
 function filterSelects(filterBox, dropDown) {

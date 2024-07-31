@@ -176,7 +176,7 @@ if(isset($_GET['all'])) {
 
                         <div class="miniboxwrapper">
                             <div class="minibox">
-                                <b>🍲 Add a saved meal to this log entry</b><hr>
+                                <div><b>🍲 Add a saved meal to this log entry</b></div><hr>
                                 
                                 <select name="addMealSavedMealsNum" id="addMealSavedMealsNum">
                                     <option value="1">1x</option>
@@ -220,11 +220,12 @@ if(isset($_GET['all'])) {
                                     <input type="search" class="filterBox" id="savedMealsFilterBox" placeholder="🔎 Filter the saved meal list" autocomplete="off"> <span class="clearSearch" title="Clear filter" onclick="this.previousElementSibling.value = ''; filterSelects('savedMealsFilterBox', 'addMealSavedMeals');">x</span>
                                 </div>
 
-                                <input id="addMealAddSavedMealBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
+                                <input id="addMealAddSavedMealBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>><br />
+                                <div class="kcalPreviewer" id="addMealKcalPreview"></div>
                             </div>
 
                             <div class="minibox">
-                                <b>🥔 Add a saved ingredient to this log entry</b><hr>
+                                <div><b>🥔 Add a saved ingredient to this log entry</b></div><hr>
 
                                 <select name="addMealSavedIngredients" id="addMealSavedIngredients">
                                     <?php
@@ -252,7 +253,8 @@ if(isset($_GET['all'])) {
                                 </div>
 
                                 Amount: <input id="addMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
-                                <input id="addMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
+                                <input id="addMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>><br />
+                                <div class="kcalPreviewer" id="addIngrToMealKcalPreview"></div>
                             </div>
                         </div>
 
@@ -264,7 +266,7 @@ if(isset($_GET['all'])) {
                     <div class="miniboxwrapper">
                         <div class="minibox">
                             <form method="GET" action=".">
-                                <b>🥗 Save a simple meal</b><hr>
+                                <div><b>🥗 Save a simple meal</b></div><hr>
                                 <input type="hidden" name="newSavedMealSubmitted" id="newSavedMealSubmitted" value="1">
                                 
                                 <div>
@@ -277,7 +279,7 @@ if(isset($_GET['all'])) {
 
                         <div class="minibox">
                             <form method="GET" action=".">
-                                <b>🥔 Build meal from saved ingredients</b><hr>
+                                <div><b>🥔 Build meal from saved ingredients</b></div><hr>
                                 <input type="hidden" name="newSavedMealFromIngrSubmitted" id="newSavedMealFromIngrSubmitted" value="1">
                                 
                                 <input type="text" name="addSavedMealFromIngrName" id="addSavedMealFromIngrName" placeholder="Meal name"> <input id="addSavedMealFromIngrTotalKcal" name="addSavedMealFromIngrTotalKcal" type="number" min="0" value="0"> kcal<br /><br />
@@ -308,7 +310,8 @@ if(isset($_GET['all'])) {
                                     </div>
 
                                     Amount: <input id="addSavedMealAddSavedIngredientAmount" type="number" min="1" value="100"> g/ml
-                                    <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>>
+                                    <input id="addSavedMealAddSavedIngredientBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>><br />
+                                    <div class="kcalPreviewer" id="addIngrToSavedMealKcalPreview"></div>
                                 </div>
 
                                 <input id="submitSavedMealFromIngrBtn" type="submit" value="Save built meal"<?php if($numrows == 0) { ?> disabled<?php }?>> <input id="addSavedMealClearBtn" type="button" value="Clear">
@@ -358,7 +361,7 @@ if(isset($_GET['all'])) {
                     <div class="miniboxwrapper">
                         <div class="minibox">
                             <form method="GET" action=".">
-                                <b>🥗 Save an ingredient</b><hr>
+                                <div><b>🥗 Save an ingredient</b></div><hr>
                                 <input type="hidden" name="newSavedIngrSubmitted" id="newSavedIngrSubmitted" value="1">
                                 
                                 <div>
@@ -412,7 +415,7 @@ if(isset($_GET['all'])) {
                     <form method="GET" action="." id="logCleanupForm">
                         <div class="miniboxwrapper">
                             <div class="minibox">
-                                <b>📃 Log cleanup</b> <sup><span id="logCleanupExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
+                                <div><b>📃 Log cleanup</b> <sup><span id="logCleanupExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup></div><hr />
                                 <div class="optionExplanation hidden" id="logCleanupExplanation">
                                     Use this setting if you want to clean up your database and remove old log entries. Saved meals and saved ingredients are <b>not</b> affected by this, only your meal log. Valid values are 0-12 months. A value of zero (0) will clear <i>all</i> historical data from the meal log.
                                 </div>
@@ -425,21 +428,21 @@ if(isset($_GET['all'])) {
                     <form method="GET" action=".">
                         <div class="miniboxwrapper">
                             <div class="minibox">
-                                <b>🏆 Daily calorie goal</b> <sup><span id="calorieGoalExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
+                                <div><b>🏆 Daily calorie goal</b> <sup><span id="calorieGoalExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup></div><hr />
                                 <div class="optionExplanation hidden" id="calorieGoalExplanation">
                                     Enabling a daily calorie goal will show how much under/over you are in relation to your goal each day, next to the daily calorie total. Being <i>under</i> your goal will show the difference in <span class="calorieGoalNeutral">orange</span>. Being <i>over</i> your goal will show the difference in <span class="calorieGoalNegative">red</span>. Being within 10% of your goal in either direction will show the difference in <span class="calorieGoalPositive">green</span>. Set to 0 to disable this function.
                                 </div>
                                 <input type="number" name="calorieGoalNum" id="calorieGoalNum" min="0" value="<?php print($calorieGoal); ?>">
                             </div>
                             <div class="minibox">
-                                <b>🕔 Hour offset</b> <sup><span id="hourOffsetExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
+                                <div><b>🕔 Hour offset</b> <sup><span id="hourOffsetExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup></div><hr />
                                 <div class="optionExplanation hidden" id="hourOffsetExplanation">
                                     If your log entries are saved with the wrong hour in the database, and you can't change the time on the server, you can set an hour offset here. The offset will apply to the entire application. Negative values will set application time before server time, and positive values will set application time ahead of server time. Valid values are -24 to +24. Note that already existing database entries will not be updated to the new offset.
                                 </div>
                                 <input type="number" name="hourOffsetNum" id="hourOffsetNum" min="-24" max="24" value="<?php print($hourOffset); ?>">
                             </div>
                             <div class="minibox">
-                                <b>🔎 Filter boxes</b> <sup><span id="filterBoxExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup><hr />
+                                <div><b>🔎 Filter boxes</b> <sup><span id="filterBoxExplanationToggler" class="explanationToggler" title="Toggle explanation">[?]</span></sup></div><hr />
                                 <div class="optionExplanation hidden" id="filterBoxExplanation">
                                     Enable or disable the filter boxes shown under each drop down list. This makes it easier to navigate a large list of saved meals or ingredients, but may be superfluous if you keep a tidy list of elements in each category.
                                 </div>

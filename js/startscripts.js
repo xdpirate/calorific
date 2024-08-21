@@ -369,6 +369,9 @@ function filterSelects(filterBox, dropDown) {
             }
         });
     }
+
+    previewIngredientKcalVal();
+    previewMealKcalVal();
 }
 
 function initialChangeTab() {

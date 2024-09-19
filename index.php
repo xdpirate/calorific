@@ -146,6 +146,7 @@ if(isset($_GET['all'])) {
                 <div id="savedMealsTab" data-div="savedMealsDiv" class="tab">🍲 Meals</div> 
                 <div id="savedIngredientsTab" data-div="savedIngredientsDiv" class="tab">🥔 Ingredients</div> 
                 <div id="settingsTab" data-div="settingsDiv" class="tab">⚙️ Settings</div> 
+                <div id="collapseTab" data-div="none" class="tab">↕️ Collapse</div> 
             </div>
 
             <div id="tabcontents">

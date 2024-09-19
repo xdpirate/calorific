@@ -7,7 +7,13 @@ function registerTabs() {
         for(let i = 0; i < tabspans.length; i++) {
             if(this == tabspans[i]) {
                 tabspans[i].classList.add("selected");
-                document.querySelector("#" + tabspans[i].getAttribute("data-div")).classList.remove("hidden");
+
+                if(tabspans[i].getAttribute("data-div") == "none") {
+                    toggleControlPanel(false);
+                } else {
+                    toggleControlPanel(true);
+                    document.querySelector("#" + tabspans[i].getAttribute("data-div")).classList.remove("hidden");
+                }
 
                 const url = new URL(window.location);
                 if(this.id == "logMealTab") {
@@ -18,12 +24,17 @@ function registerTabs() {
                     url.searchParams.set("t", "ingredients");
                 } else if(this.id == "settingsTab") {
                     url.searchParams.set("t", "settings");
+                } else if(this.id == "collapseTab") {
+                    url.searchParams.set("t", "collapse");
                 }
 
                 window.history.replaceState({}, "", url);
             } else {
                 tabspans[i].classList.remove("selected");
-                document.querySelector("#" + tabspans[i].getAttribute("data-div")).classList.add("hidden");
+                
+                if(tabspans[i].getAttribute("data-div") != "none") {
+                    document.querySelector("#" + tabspans[i].getAttribute("data-div")).classList.add("hidden");
+                }
             }
         }
     };
@@ -31,6 +42,23 @@ function registerTabs() {
     for(let i = 0; i < tabspans.length; i++) {
         tabspans[i].addEventListener("click", tabToggler);
     }    
+}
+
+function toggleControlPanel(shown) {
+    localStorage.calorificControlPanelShown = shown;
+    if(shown) {
+        document.querySelector("#tabcontents").classList.remove("hidden");
+
+        document.querySelectorAll(".tab").forEach(tab => {
+            tab.classList.remove("tabUnderline");
+        });
+    } else {
+        document.querySelector("#tabcontents").classList.add("hidden");
+
+        document.querySelectorAll(".tab").forEach(tab => {
+            tab.classList.add("tabUnderline");
+        });
+    }
 }
 
 function registerEvents() {
@@ -383,8 +411,14 @@ function initialChangeTab() {
             document.querySelector("#savedIngredientsTab").click();
         } else if(params.get("t") == "settings") {
             document.querySelector("#settingsTab").click();
+        } else if(params.get("t") == "collapse") {
+            document.querySelector("#collapseTab").click();
         }
-    }
+    } else {
+        if(localStorage.calorificControlPanelShown == "false") { // This feels wrong, but localStorage is a string
+            document.querySelector("#collapseTab").click();
+        }
+    }  
 }
 
 function notifyDBChange() {

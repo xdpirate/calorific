@@ -14,8 +14,16 @@ Calorific is aimed at people who more or less know what they're doing and don't 
 * Build log entries from saved meals and ingredients lists
 * Build saved meals from ingredients list
 * Set a daily calorie goal to see your progress throughout the day
-* [Nord](https://www.nordtheme.com/)
 * Built-in update mechanism
+* [Nord](https://www.nordtheme.com/)
+
+Plus a number of minor features, such as:
+
+* Option to display boxes to filter your growing meal/ingredients lists
+* Option for hour offsets to work around server time issues
+* Previewing how a log entry will impact your daily calorie count when creating it
+* Functionality for cleaning up your log database
+* A button to hide the control panel
 
 ## Requirements
 
@@ -75,7 +83,7 @@ Run `docker-compose down` from inside the repository directory, then delete it. 
 
 ## Security
 
-There are currently zero security measures implemented. For external access, you can use `.htaccess` based authentication or a reverse proxy with authentication. Alternatively, you can make sure the application isn't exposed outside your local network.
+There are currently zero security measures implemented in regards to open access. This application is meant to be ran on your local network, then accessed through VPN, reverse proxy, etc. For external access, you can use `.htaccess` based authentication, a VPN server like WireGuard, a reverse proxy with authentication, or whichever other method you prefer. Alternatively, you can make sure the application isn't exposed outside your local network, and just use it from within that network.
 
 If you are running Calorific in Docker and also exposing it outside your own network, you need to change the MySQL username and password in `docker-compose.yml` and `index.php` to something unique! If you don't, your database will be vulnerable, as the default credentials are included in plain text in this repository.
 

@@ -125,6 +125,12 @@ div.tab {
     border-top-right-radius: 0.2em;
 }
 
+div.tabUnderline {
+    border-bottom: 1px solid #e5e9f0;
+    border-bottom-left-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+}
+
 .kcalPreviewer {
     font-size: 0.7em;
 }

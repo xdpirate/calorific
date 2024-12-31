@@ -393,7 +393,7 @@ if(isset($_GET['all'])) {
             
                                             print("
                                                 <tr>
-                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
+                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcalPer100'>✏️</span></td>
                                                     <td>$name</td>
                                                     <td>$kcalPer100</td>
                                                 </tr>

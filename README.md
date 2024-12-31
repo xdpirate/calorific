@@ -49,12 +49,14 @@ Calorific is developed and tested using Apache2 and MySQL, but other web servers
 2. Put the `calorific` directory in your web server document root (typically `/var/www/html`).
 3. Create `credentials.php` within the same directory as `index.php`, and populate it with the following:
 
-```
+```php
 <?php
 $mysqlHost = "your-sql-hostname";
 $mysqlUser = "your-sql-username";
 $mysqlPassword = "your-sql-password";
-?>
+$mysqlDB = "your-sql-database";
+// uncomment if using mysql < 8 or mariadb < 11.4.5
+// $mysqlCollation = "utf8mb4_general_ci";
 ```
 
 4. Replace the values of the variables to fit your database configuration. Calorific will set up the database structure by itself.

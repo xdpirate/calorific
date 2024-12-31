@@ -22,6 +22,9 @@
 $mysqlHost = "db";
 $mysqlUser = "php_docker";
 $mysqlPassword = "password123";
+$mysqlDB = "calorific";
+// collation for use when creating tables, use utf8mb4_general_ci for mysql < 8 or mariadb < 11.4.5
+$mysqlCollation = "utf8mb4_0900_ai_ci";
 
 error_reporting(E_ERROR); // Silence the next line so it doesn't cry when running in Docker
 include("./credentials.php");

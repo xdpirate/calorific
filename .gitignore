@@ -2,4 +2,5 @@
 .directory
 .htaccess
 .vscode
+.idea
 credentials.php

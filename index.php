@@ -502,53 +502,7 @@ if(isset($_GET['all'])) {
             </table>
 
             <?php } ?>
-
-            <?php
-                if(mysqli_num_rows($resFutureMeals) > 0) {
-            ?>
-
-            <h2 id="futureHeader">Time traveling meals</h2>
-
-            <table>
-                <thead>
-                    <th>⚙️</th>
-                    <th>🕔</th>
-                    <th>Description</th>
-                    <th>kcal consumed</th>
-                </thead>
-                <tbody>
-                <?php
-                    $numrows = mysqli_num_rows($resFutureMeals);
-                    for($i = 0; $i < $numrows; $i++) {
-                        $id = mysqli_result($resFutureMeals,$i,"ID");
-                        $timestamp = mysqli_result($resFutureMeals,$i,"time");
-                        $date = date("Y-m-d", strtotime($timestamp));
-                        $time = date("H:i", strtotime($timestamp));
-                        $description = mysqli_result($resFutureMeals,$i,"description");
-                        $kcal = mysqli_result($resFutureMeals,$i,"kcal");
-
-                        print("
-                            <tr>
-                                <td>
-                                    <details>
-                                    <summary>⚙️</summary>
-                                        <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
-                                        <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
-                                        <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
-                                    </details>
-                                </td>
-                                <td>$date $time</td>
-                                <td>$description</td>
-                                <td>$kcal</td>
-                            </tr>
-                        ");
-                    }
-                ?>
-                </tbody>
-            </table>
-
-            <?php } ?>
-
+            
             <h2 id="todayHeader">Today</h2>
 
             <div id="mealstoday">

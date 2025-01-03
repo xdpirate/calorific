@@ -22,9 +22,6 @@
 $mysqlHost = "db";
 $mysqlUser = "php_docker";
 $mysqlPassword = "password123";
-$mysqlDB = "calorific";
-// collation for use when creating tables, use utf8mb4_general_ci for mysql < 8 or mariadb < 11.4.5
-$mysqlCollation = "utf8mb4_0900_ai_ci";
 
 error_reporting(E_ERROR); // Silence the next line so it doesn't cry when running in Docker
 include("./credentials.php");
@@ -74,6 +71,7 @@ $resIngredients = mysqli_query($link, "SELECT * FROM `ingredients` ORDER BY `nam
 $resToday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR) AS DATE) ORDER BY `time` ASC;");
 $resYesterday = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) = CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` ASC");
 $resHistory = "";
+$resFutureMeals = mysqli_query($link, "SELECT * FROM `history` WHERE CAST(`time` AS DATE) > CAST(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR) AS DATE) ORDER BY `time` ASC");
 
 $resHistoryQuery = "SELECT * FROM `history` WHERE CAST(`time` AS DATE) < CAST(DATE_ADD(DATE_ADD(NOW(), INTERVAL $hourOffset HOUR), INTERVAL -1 DAY) AS DATE) ORDER BY `time` DESC";
 if(isset($_GET['all'])) {
@@ -396,7 +394,7 @@ if(isset($_GET['all'])) {
             
                                             print("
                                                 <tr>
-                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcalPer100'>✏️</span></td>
+                                                    <td><span class='delBtn' data-src='ingredients' data-id='$id' data-name='$name'>❌</span><span class='editBtn' data-src='ingredients' data-id='$id' data-name='$name' data-kcal='$kcal'>✏️</span></td>
                                                     <td>$name</td>
                                                     <td>$kcalPer100</td>
                                                 </tr>
@@ -458,6 +456,98 @@ if(isset($_GET['all'])) {
                     </form>
                 </div>
             </div>
+
+            <?php
+                if(mysqli_num_rows($resFutureMeals) > 0) {
+            ?>
+
+            <h2 id="futureHeader">Time traveling meals</h2>
+
+            <table>
+                <thead>
+                    <th>⚙️</th>
+                    <th>🕔</th>
+                    <th>Description</th>
+                    <th>kcal consumed</th>
+                </thead>
+                <tbody>
+                <?php
+                    $numrows = mysqli_num_rows($resFutureMeals);
+                    for($i = 0; $i < $numrows; $i++) {
+                        $id = mysqli_result($resFutureMeals,$i,"ID");
+                        $timestamp = mysqli_result($resFutureMeals,$i,"time");
+                        $date = date("Y-m-d", strtotime($timestamp));
+                        $time = date("H:i", strtotime($timestamp));
+                        $description = mysqli_result($resFutureMeals,$i,"description");
+                        $kcal = mysqli_result($resFutureMeals,$i,"kcal");
+
+                        print("
+                            <tr>
+                                <td>
+                                    <details>
+                                    <summary>⚙️</summary>
+                                        <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
+                                        <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
+                                        <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                    </details>
+                                </td>
+                                <td>$date $time</td>
+                                <td>$description</td>
+                                <td>$kcal</td>
+                            </tr>
+                        ");
+                    }
+                ?>
+                </tbody>
+            </table>
+
+            <?php } ?>
+
+            <?php
+                if(mysqli_num_rows($resFutureMeals) > 0) {
+            ?>
+
+            <h2 id="futureHeader">Time traveling meals</h2>
+
+            <table>
+                <thead>
+                    <th>⚙️</th>
+                    <th>🕔</th>
+                    <th>Description</th>
+                    <th>kcal consumed</th>
+                </thead>
+                <tbody>
+                <?php
+                    $numrows = mysqli_num_rows($resFutureMeals);
+                    for($i = 0; $i < $numrows; $i++) {
+                        $id = mysqli_result($resFutureMeals,$i,"ID");
+                        $timestamp = mysqli_result($resFutureMeals,$i,"time");
+                        $date = date("Y-m-d", strtotime($timestamp));
+                        $time = date("H:i", strtotime($timestamp));
+                        $description = mysqli_result($resFutureMeals,$i,"description");
+                        $kcal = mysqli_result($resFutureMeals,$i,"kcal");
+
+                        print("
+                            <tr>
+                                <td>
+                                    <details>
+                                    <summary>⚙️</summary>
+                                        <span class='delBtn' data-src='log' data-id='$id' data-name='$description' title='Delete'>❌</span>
+                                        <span class='editBtn' data-src='log' data-id='$id' data-name='$description' data-kcal='$kcal' data-date='$date' data-time='$time' title='Edit'>✏️</span>
+                                        <span class='cloneBtn' data-name='$description' data-kcal='$kcal' title='Log again'>📑</span>
+                                    </details>
+                                </td>
+                                <td>$date $time</td>
+                                <td>$description</td>
+                                <td>$kcal</td>
+                            </tr>
+                        ");
+                    }
+                ?>
+                </tbody>
+            </table>
+
+            <?php } ?>
 
             <h2 id="todayHeader">Today</h2>
 

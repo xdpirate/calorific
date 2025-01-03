@@ -1,7 +1,10 @@
 <?php
 // Setup DB if it's the first run
-mysqli_query($link, "CREATE DATABASE IF NOT EXISTS `$mysqlDB`");
-mysqli_select_db($link, $mysqlDB);
+if(!isset($mysqlDB)) {
+    $mysqlDB = "calorific";
+    mysqli_query($link, "CREATE DATABASE IF NOT EXISTS `$mysqlDB`");
+    mysqli_select_db($link, $mysqlDB);
+}
 
 if (!isset($mysqlCollation)) {
     $mysqlCollation = "utf8mb4_0900_ai_ci";

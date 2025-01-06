@@ -224,7 +224,7 @@ if(isset($_GET['all'])) {
                                 </select><br />
 
                                 <div class="filterBoxWrapper <?php if($filterBoxState == 0) { print("hidden"); } ?>">
-                                    <input type="search" class="filterBox" id="savedMealsFilterBox" placeholder="🔎 Filter the saved meal list" autocomplete="off"> <span class="clearSearch" title="Clear filter" onclick="this.previousElementSibling.value = ''; filterSelects('savedMealsFilterBox', 'addMealSavedMeals');">x</span>
+                                    <input type="search" class="filterBox" id="savedMealsFilterBox" placeholder="🔎 Filter the saved meal list" autocomplete="off"> <span class="clearSearch" title="Clear filter" onclick="this.previousElementSibling.value = ''; filterSelects('savedMealsFilterBox', 'addMealSavedMeals'); previewMealKcalVal();">x</span>
                                 </div>
 
                                 <input id="addMealAddSavedMealBtn" type="button" value="+ Add"<?php if($numrows == 0) { ?> disabled<?php }?>><br />

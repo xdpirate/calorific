@@ -64,7 +64,14 @@ function toggleControlPanel(shown) {
 function registerEvents() {
     let addMealAddSavedMeal = function() {
         let selectedMeal = document.querySelector("select#addMealSavedMeals");
-        let amount = Number(document.querySelector("select#addMealSavedMealsNum").value);
+        
+        let amount;
+        if(document.querySelector("#addMealSavedMealsNum").value === "x") {
+            amount = Number(document.querySelector("#addMealSavedMealsNumArbitrary").value);
+        } else {
+            amount = Number(document.querySelector("#addMealSavedMealsNum").value);
+        }
+
         let kcal = Number(selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-kcal")) * amount;
         let name = selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-name");
         document.querySelector("#addMealDescription").value += amount + "x " + name + ", ";
@@ -243,11 +250,26 @@ function registerEvents() {
         previewIngredientKcalVal(false);
     });
     
-    document.querySelector("#addMealSavedMealsNum").addEventListener("change", function() {
+    let addMealSavedMealsNumHandler = function() {
+        if(document.querySelector("#addMealSavedMealsNum").value === "x") {
+            document.querySelector("#addMealSavedMealsNum").classList.add("hidden");
+            document.querySelector("#addMealSavedMealsNumArbitraryContainer").classList.remove("hidden");
+            document.querySelector("#addMealSavedMealsNumArbitraryContainer").classList.add("inlineBlock");
+        }
+
         previewMealKcalVal();
-    });
+    };
+
+    document.querySelector("#addMealSavedMealsNum").addEventListener("change", addMealSavedMealsNumHandler);
+
+    // Also run right away to update when page is loaded
+    addMealSavedMealsNumHandler();
     
     document.querySelector("#addMealSavedMeals").addEventListener("change", function() {
+        previewMealKcalVal();
+    });
+
+    document.querySelector("#addMealSavedMealsNumArbitrary").addEventListener("change", function() {
         previewMealKcalVal();
     });
     
@@ -338,7 +360,6 @@ function registerEvents() {
         filterSelects("mealBuilderIngredientsFilterBox", "addSavedMealFromIngr");
         previewIngredientKcalVal(false);
     });
-
 }
 
 function previewIngredientKcalVal(isLog = true) {
@@ -356,7 +377,15 @@ function previewIngredientKcalVal(isLog = true) {
 
 function previewMealKcalVal() {
     let selectedMeal = document.querySelector("#addMealSavedMeals");
-    let amount = Number(document.querySelector("#addMealSavedMealsNum").value);
+
+    let amount = 0;
+    
+    if(document.querySelector("#addMealSavedMealsNum").value === "x") {
+        amount = Number(document.querySelector("#addMealSavedMealsNumArbitrary").value);
+    } else {
+        amount = Number(document.querySelector("#addMealSavedMealsNum").value);
+    }
+
     let mealPreviewer = document.querySelector("#addMealKcalPreview");        
     let kcal = Number(selectedMeal.options[selectedMeal.selectedIndex].getAttribute("data-kcal"));
     kcal = Math.ceil(kcal * amount);

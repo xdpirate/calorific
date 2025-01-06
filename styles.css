@@ -321,6 +321,10 @@ input, select, #toastNotification {
     animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
 
+.inlineBlock {
+    display: inline-block;
+}
+
 .savedIngrMealHeader {
     width: 100%; 
     text-align: center;

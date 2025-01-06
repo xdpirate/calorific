@@ -59,6 +59,8 @@ $mysqlDB = "your-sql-database";
 // $mysqlCollation = "utf8mb4_general_ci";
 ```
 
+The `$mysqlDB` variable is optional and can be omitted in order to create and use the default database (`calorific`).
+
 4. Replace the values of the variables to fit your database configuration. Calorific will set up the database structure by itself.
 5. To update Calorific, use the [included updater](#updater), or run `git pull` in the repository directory (requires `git` to be installed).
 

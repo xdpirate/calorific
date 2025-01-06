@@ -191,7 +191,12 @@ if(isset($_GET['all'])) {
                                     <option value="8">8x</option>
                                     <option value="9">9x</option>
                                     <option value="10">10x</option>
+                                    <option value="x">Specify</option>
                                 </select>
+
+                                <div id="addMealSavedMealsNumArbitraryContainer" class="hidden">
+                                    <input type="number" min="1" value="1" name="addMealSavedMealsNumArbitrary" id="addMealSavedMealsNumArbitrary"> x
+                                </div>
 
                                 <select name="addMealSavedMeals" id="addMealSavedMeals">
                                     <?php
